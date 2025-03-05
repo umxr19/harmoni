@@ -1,7 +1,9 @@
 import jwt, { SignOptions, Secret, JwtPayload } from 'jsonwebtoken';
-import User, { IUser } from '../models/user';
+import { User, IUser } from '../models/userModel';
 import { sendEmail } from '../utils/emailService';
 import crypto from 'crypto';
+import { signToken } from '../utils/jwtHelper';
+import logger from '../utils/logger';
 
 export default class AuthService {
     async register(userData: { username: string; email: string; password: string; role?: string }) {
@@ -16,23 +18,57 @@ export default class AuthService {
         // Generate verification token
         const verificationToken = crypto.randomBytes(32).toString('hex');
         
+        // Create new user with verification token
         const user = new User({
             ...userData,
             emailVerificationToken: verificationToken,
             isEmailVerified: false
         });
-
+        
+        // Save the user to database
         await user.save();
+        
+        // Try to send verification email with correct frontend URL
+        try {
+            const verificationUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/verify-email/${verificationToken}`;
+            
+            await sendEmail({
+                to: user.email,
+                subject: 'Verify Your Email Address',
+                text: `Please verify your email address by clicking the following link: ${verificationUrl}`
+            });
+        } catch (error) {
+            logger.error('Failed to send verification email:', error);
+            // Continue even if email fails - we'll handle this separately
+        }
+        
+        // Generate JWT token for immediate login
+        const secret = process.env.JWT_SECRET || 'your-secret-key';
+        const payload = {
+            id: user._id,
+            email: user.email,
+            role: user.role
+        };
 
-        // Send verification email
-        const verificationUrl = `http://localhost:3000/verify-email/${verificationToken}`;
-        await sendEmail({
-            to: user.email,
-            subject: 'Verify your email',
-            text: `Please click the following link to verify your email: ${verificationUrl}`
-        });
-
-        return this.generateToken(user);
+        try {
+            const token = signToken(
+                { ...payload, id: typeof payload.id === 'string' ? payload.id : String(payload.id) },
+                secret,
+                { expiresIn: '24h' }
+            );
+            return {
+                token,
+                user: {
+                    id: user._id,
+                    username: user.username,
+                    email: user.email,
+                    role: user.role
+                }
+            };
+        } catch (error) {
+            logger.error('Token generation error:', error);
+            throw new Error('Failed to generate token');
+        }
     }
 
     async login(email: string, password: string) {
@@ -63,7 +99,13 @@ export default class AuthService {
     }
 
     private generateToken(user: IUser) {
-        const secret: Secret = process.env.JWT_SECRET ?? '';
+        // Throw error in production if JWT_SECRET is not defined
+        if (!process.env.JWT_SECRET && process.env.NODE_ENV === 'production') {
+            throw new Error('JWT_SECRET is not defined in environment variables');
+        }
+        
+        // Only use fallback in development
+        const secret = process.env.JWT_SECRET || (process.env.NODE_ENV !== 'production' ? 'dev-temporary-secret-key' : '');
         
         const payload = {
             id: user._id,
@@ -72,7 +114,11 @@ export default class AuthService {
         };
 
         try {
-            const token = jwt.sign(payload, secret, { expiresIn: '24h' });
+            const token = signToken(
+                { ...payload, id: typeof payload.id === 'string' ? payload.id : String(payload.id) },
+                secret,
+                { expiresIn: '24h' }
+            );
             return {
                 token,
                 user: {
@@ -83,7 +129,7 @@ export default class AuthService {
                 }
             };
         } catch (error) {
-            console.error('Token generation error:', error);
+            logger.error('Token generation error:', error);
             throw new Error('Failed to generate token');
         }
     }

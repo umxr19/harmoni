@@ -1,0 +1,26 @@
+/* Theme Toggle Button Styles */
+.theme-toggle-button {
+  background-color: #4a6cf7;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  margin: 5px 0;
+}
+
+.theme-toggle-button:hover {
+  background-color: #3a5ce5;
+}
+
+/* Dark mode styles */
+body.dark-mode .theme-toggle-button {
+  background-color: #ffcc00;
+  color: #333;
+}
+
+body.dark-mode .theme-toggle-button:hover {
+  background-color: #e6b800;
+} 

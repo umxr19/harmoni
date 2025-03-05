@@ -1,0 +1,266 @@
+.practice-container {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.practice-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.practice-header h1 {
+  margin: 0 0 15px 0;
+  color: #333;
+}
+
+.practice-header p {
+  color: #6c757d;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.practice-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.option-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 25px;
+}
+
+.option-card h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.option-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #495057;
+}
+
+.start-button {
+  padding: 12px;
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 10px;
+}
+
+.start-button:hover:not(:disabled) {
+  background-color: #3a5ce5;
+}
+
+.start-button:disabled {
+  background-color: #a0aee9;
+  cursor: not-allowed;
+}
+
+.quick-options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.quick-option {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quick-option.verbal {
+  background-color: #e7f5ff;
+  color: #0d6efd;
+}
+
+.quick-option.verbal:hover:not(:disabled) {
+  background-color: #d0e8ff;
+}
+
+.quick-option.math {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.quick-option.math:hover:not(:disabled) {
+  background-color: #ffeeba;
+}
+
+.quick-option.mixed {
+  background-color: #e6f7e6;
+  color: #28a745;
+}
+
+.quick-option.mixed:hover:not(:disabled) {
+  background-color: #d4f0d4;
+}
+
+.quick-option:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.option-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.option-description {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.loading-spinner, .error-message {
+  text-align: center;
+  padding: 50px;
+  font-size: 1.1rem;
+}
+
+.error-message {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .practice-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Update the quick practice section styling */
+.quick-practice-section {
+  margin-bottom: 50px;
+}
+
+.quick-practice-section h2 {
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.quick-practice-section p {
+  margin-bottom: 25px;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.category-box {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  border-top: 5px solid;
+}
+
+.category-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.category-header {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.category-icon {
+  font-size: 1.8rem;
+  margin-right: 15px;
+}
+
+.category-header h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.category-content {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.category-description {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.category-topics {
+  margin-bottom: 20px;
+}
+
+.category-topics h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.category-topics ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.category-topics li {
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.start-quick-practice-button {
+  margin-top: auto;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.start-quick-practice-button:hover {
+  opacity: 0.9;
+} 

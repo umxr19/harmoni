@@ -1,0 +1,135 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Lint code
+      run: npm run lint
+    
+    - name: Run tests
+      run: npm test
+      
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: coverage/
+      
+  build:
+    needs: lint-and-test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build frontend
+      run: |
+        cd frontend
+        npm ci
+        npm run build
+    
+    - name: Upload frontend build
+      uses: actions/upload-artifact@v3
+      with:
+        name: frontend-build
+        path: frontend/dist/
+    
+    - name: Build backend
+      run: npm run build
+    
+    - name: Upload backend build
+      uses: actions/upload-artifact@v3
+      with:
+        name: backend-build
+        path: dist/
+  
+  deploy-dev:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    environment: development
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Download frontend build
+      uses: actions/download-artifact@v3
+      with:
+        name: frontend-build
+        path: frontend/dist
+    
+    - name: Download backend build
+      uses: actions/download-artifact@v3
+      with:
+        name: backend-build
+        path: dist
+    
+    - name: Deploy to development
+      run: |
+        echo "Deploying to development environment"
+        # Add your deployment script here
+        # For example, deploying to Heroku:
+        # npm install -g heroku
+        # heroku container:login
+        # heroku container:push web -a your-dev-app
+        # heroku container:release web -a your-dev-app
+  
+  deploy-prod:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment: production
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Download frontend build
+      uses: actions/download-artifact@v3
+      with:
+        name: frontend-build
+        path: frontend/dist
+    
+    - name: Download backend build
+      uses: actions/download-artifact@v3
+      with:
+        name: backend-build
+        path: dist
+    
+    - name: Deploy to production
+      run: |
+        echo "Deploying to production environment"
+        # Add your production deployment script here
+        # For example, deploying to AWS:
+        # npm install -g aws-cli
+        # aws s3 sync frontend/dist s3://your-bucket-name/ --delete
+        # aws elasticbeanstalk create-application-version --application-name your-app --version-label ${{ github.sha }} --source-bundle S3Bucket="your-bucket",S3Key="backend.zip"
+        # aws elasticbeanstalk update-environment --environment-name your-env --version-label ${{ github.sha }} 

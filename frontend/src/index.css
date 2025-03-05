@@ -1,3 +1,9 @@
+/* Import mobile-specific styles */
+@import url('./styles/mobile.css');
+
+/* Import form styles */
+@import url('./styles/forms.css');
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -24,10 +30,18 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Only apply flex layout on desktop */
+@media (min-width: 769px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
 }
 
 h1 {

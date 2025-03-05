@@ -1,0 +1,350 @@
+.classroom-details-container {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.details-header h1 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 2.2rem;
+}
+
+.classroom-meta {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+}
+
+.subject-tag, .grade-tag {
+  background-color: #f0f0f0;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.header-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.back-button, .invite-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.back-button {
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.back-button:hover {
+  background-color: #e9ecef;
+}
+
+.invite-button {
+  background-color: #4a6cf7;
+  color: white;
+}
+
+.invite-button:hover {
+  background-color: #3a5ce5;
+}
+
+.classroom-description {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 25px;
+  margin-bottom: 30px;
+}
+
+.classroom-description h2 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.classroom-description p {
+  margin: 0;
+  color: #555;
+  line-height: 1.6;
+}
+
+.classroom-section {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 25px;
+  margin-bottom: 30px;
+}
+
+.classroom-section h2 {
+  margin: 0 0 20px 0;
+  color: #333;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.students-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.student-card {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.student-info h3 {
+  margin: 0 0 5px 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.student-info p {
+  margin: 0;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.student-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.view-progress-btn, .remove-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.view-progress-btn {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.view-progress-btn:hover {
+  background-color: #bbdefb;
+}
+
+.remove-btn {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.remove-btn:hover {
+  background-color: #ffcdd2;
+}
+
+.create-assignment-btn {
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-bottom: 20px;
+}
+
+.create-assignment-btn:hover {
+  background-color: #3a5ce5;
+}
+
+.no-students-message, .no-assignments-message {
+  color: #6c757d;
+  text-align: center;
+  padding: 20px;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  color: #4a6cf7;
+  font-size: 1.2rem;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #dc3545;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.not-found-message {
+  text-align: center;
+  padding: 50px 20px;
+  color: #6c757d;
+  font-size: 1.2rem;
+}
+
+/* Assignment Styles */
+.assignments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.assignment-item {
+  background-color: #f9fafb;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.assignment-info {
+  flex-grow: 1;
+}
+
+.assignment-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #111827;
+}
+
+.assignment-details {
+  display: flex;
+  gap: 15px;
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+
+.assignment-description {
+  font-size: 0.9rem;
+  color: #4b5563;
+  margin: 0;
+}
+
+.assignment-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn, .delete-btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.edit-btn {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+}
+
+.edit-btn:hover {
+  background-color: #bae6fd;
+}
+
+.delete-btn {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.delete-btn:hover {
+  background-color: #fecaca;
+}
+
+.assignment-status {
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.assignment-status.pending {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.assignment-status.completed {
+  background-color: #d1fae5;
+  color: #059669;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .details-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .header-actions {
+    width: 100%;
+  }
+  
+  .back-button, .invite-button {
+    flex: 1;
+  }
+  
+  .students-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .student-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .student-info {
+    margin-bottom: 15px;
+  }
+  
+  .student-actions {
+    width: 100%;
+  }
+  
+  .view-progress-btn, .remove-btn {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .assignment-item {
+    flex-direction: column;
+  }
+  
+  .assignment-actions {
+    margin-top: 15px;
+    align-self: flex-start;
+  }
+} 

@@ -1,48 +1,74 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-export interface IOption {
-    text: string;
-    isCorrect: boolean;
-}
-
 export interface IQuestion extends Document {
-    title: string;
-    content: string;
-    options: IOption[];
+    question: string;
     category: string[];
+    subCategory?: string;
     difficulty: 'easy' | 'medium' | 'hard';
-    createdBy: mongoose.Types.ObjectId;
+    options: {
+        text: string;
+        isCorrect: boolean;
+    }[];
+    explanation?: string;
     imageUrl?: string;
+    createdBy: mongoose.Types.ObjectId;
     createdAt: Date;
+    updatedAt: Date;
 }
 
 const QuestionSchema: Schema = new Schema({
-    title: { type: String, required: true },
-    content: { type: String, required: true },
-    options: [{
-        text: { type: String, required: true },
-        isCorrect: { type: Boolean, required: true }
-    }],
-    category: [{ type: String, required: true }],
+    question: { 
+        type: String, 
+        required: true 
+    },
+    category: { 
+        type: [String], 
+        required: true 
+    },
+    subCategory: { 
+        type: String 
+    },
     difficulty: { 
         type: String, 
         enum: ['easy', 'medium', 'hard'],
         required: true 
+    },
+    options: [{ 
+        text: { type: String, required: true },
+        isCorrect: { type: Boolean, required: true }
+    }],
+    explanation: { 
+        type: String 
+    },
+    imageUrl: { 
+        type: String 
     },
     createdBy: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User',
         required: true 
     },
-    imageUrl: String,
-    createdAt: { type: Date, default: Date.now }
+    createdAt: { 
+        type: Date, 
+        default: Date.now 
+    },
+    updatedAt: { 
+        type: Date, 
+        default: Date.now 
+    }
 });
 
 // Add text index for search
 QuestionSchema.index({ 
-    title: 'text', 
-    content: 'text',
+    question: 'text', 
     category: 'text' 
 });
 
-export default mongoose.model<IQuestion>('Question', QuestionSchema);
+// Index for faster queries
+QuestionSchema.index({ subjectId: 1 });
+QuestionSchema.index({ difficulty: 1 });
+QuestionSchema.index({ status: 1 });
+
+// Check if the model exists before creating it to prevent the 'OverwriteModelError'
+export const Question = mongoose.models.Question || mongoose.model<IQuestion>('Question', QuestionSchema);
+export default Question;

@@ -1,0 +1,43 @@
+.app-footer {
+  width: 100%;
+  padding: 20px 0;
+  background-color: #f3eaff; /* Very light purple */
+  margin-top: auto;
+}
+
+.app-footer-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.app-copyright {
+  color: #7d6cb0; /* Medium-dark purple */
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .app-footer {
+    padding: 15px 0;
+  }
+  
+  .app-copyright {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .app-footer {
+    padding: 12px 0;
+  }
+  
+  .app-footer-container {
+    padding: 0 15px;
+  }
+  
+  .app-copyright {
+    font-size: 0.75rem;
+  }
+} 

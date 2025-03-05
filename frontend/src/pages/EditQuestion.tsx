@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { questionService } from '../services/api';
 import { Question } from '../types';
+import logger from '../utils/logger';
 
 export const EditQuestion: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -16,7 +17,7 @@ export const EditQuestion: React.FC = () => {
                 setQuestion(response.data);
             } catch (error) {
                 setError('Failed to fetch question.');
-                console.error('Error fetching question:', error);
+                logger.error('Error fetching question:', error);
             }
         };
 
@@ -31,7 +32,7 @@ export const EditQuestion: React.FC = () => {
                 navigate('/questions');
             } catch (error) {
                 setError('Failed to update question.');
-                console.error('Error updating question:', error);
+                logger.error('Error updating question:', error);
             }
         }
     };

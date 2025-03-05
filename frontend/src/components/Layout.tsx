@@ -9,39 +9,29 @@ export const Layout: React.FC = () => {
     const user: User | null = userString ? JSON.parse(userString) : null;
 
     const handleLogout = () => {
+        // @ts-ignore
         authService.logout();
         navigate('/login');
     };
 
     return (
         <div>
-            <nav>
-                <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/questions">Questions</Link></li>
-                    
-                    {/* Teacher/Admin only */}
-                    {user?.role === 'teacher' || user?.role === 'admin' ? (
-                        <li><Link to="/questions/create">Create Question</Link></li>
-                    ) : null}
-                    
-                    {/* Admin only */}
-                    {user?.role === 'admin' && (
-                        <li><Link to="/admin">Admin Dashboard</Link></li>
-                    )}
-                    
-                    {user ? (
-                        <>
-                            <li><Link to="/profile">Profile</Link></li>
-                            <li><button onClick={handleLogout}>Logout</button></li>
-                        </>
-                    ) : (
-                        <>
-                            <li><Link to="/login">Login</Link></li>
-                            <li><Link to="/register">Register</Link></li>
-                        </>
-                    )}
-                </ul>
+            <nav className="main-nav">
+                <Link to="/">Home</Link>
+                <Link to="/questions">Questions</Link>
+                <Link to="/practice/sets">Practice</Link>
+                {user ? (
+                    <>
+                        <Link to="/profile">Profile</Link>
+                        <Link to="/questions/create">Create Question</Link>
+                        <button onClick={handleLogout} className="logout-button">Logout</button>
+                    </>
+                ) : (
+                    <>
+                        <Link to="/login">Login</Link>
+                        <Link to="/register">Register</Link>
+                    </>
+                )}
             </nav>
             <main>
                 <Outlet />

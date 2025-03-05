@@ -1,0 +1,62 @@
+.chart-wrapper {
+  width: 100%;
+  height: 300px;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
+}
+
+.chart-wrapper:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 12px rgba(255, 173, 173, 0.1);
+}
+
+/* Custom styling for Recharts components */
+.chart-wrapper .recharts-surface {
+  overflow: visible;
+}
+
+.chart-wrapper .recharts-cartesian-axis-tick-value {
+  font-size: 12px;
+  fill: #5a5a5a;
+}
+
+.chart-wrapper .recharts-legend-item-text {
+  color: #5a5a5a !important;
+}
+
+/* Custom colors for different chart elements */
+.chart-wrapper .recharts-bar-rectangle path {
+  stroke: none;
+}
+
+.chart-wrapper .recharts-pie path {
+  stroke: #fff9f5;
+  stroke-width: 2;
+}
+
+.chart-wrapper .recharts-radar-polygon {
+  stroke: #ff9e7d;
+  fill: rgba(255, 158, 125, 0.3);
+}
+
+.chart-wrapper .recharts-radar-circle {
+  fill: #ffcf96;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .chart-wrapper {
+    height: 250px;
+  }
+}
+
+@media (max-width: 576px) {
+  .chart-wrapper {
+    height: 200px;
+  }
+} 

@@ -1,0 +1,167 @@
+/* Add custom fonts if not already in your project */
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900&display=swap');
+
+/* Base styles are already in the component using Tailwind */
+
+/* Desktop optimizations */
+@media (min-width: 768px) {
+  .register-container {
+    padding: 2rem;
+    max-width: 480px;
+    margin: 0 auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .register-title {
+    font-size: 2rem;
+  }
+}
+
+.register-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.register-container h1 {
+  color: #6b46c1;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+}
+
+.register-container button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #6b46c1;
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.register-container button:hover {
+  background-color: #5a32a3;
+}
+
+.register-container button:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+}
+
+.error-message {
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  background-color: #fed7d7;
+  color: #e53e3e;
+  border-radius: 0.375rem;
+  text-align: center;
+}
+
+.teacher-info {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #4a5568;
+}
+
+.login-link {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #4a5568;
+}
+
+.login-link a, .teacher-info a {
+  color: #6b46c1;
+  text-decoration: none;
+}
+
+.login-link a:hover, .teacher-info a:hover {
+  text-decoration: underline;
+}
+
+/* User Type Selection Styles */
+.user-type-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+@media (min-width: 640px) {
+  .user-type-selection {
+    flex-direction: row;
+  }
+}
+
+.user-type-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  background-color: #f7fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  flex: 1;
+}
+
+.user-type-button:hover {
+  border-color: #6b46c1;
+  background-color: #f3f0ff;
+}
+
+.user-type-button.selected {
+  border-color: #6b46c1;
+  background-color: #f3f0ff;
+}
+
+.user-type-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.user-type-button h3 {
+  margin: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  color: #2d3748;
+}
+
+.user-type-button p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #718096;
+  text-align: center;
+}
+
+.loading-indicator {
+  text-align: center;
+  margin-top: 1rem;
+  color: #6b46c1;
+} 

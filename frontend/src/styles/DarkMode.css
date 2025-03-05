@@ -1,0 +1,505 @@
+/* Dark Mode Theme Styles */
+
+/* Base styles for dark mode */
+body.dark-mode {
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-tertiary: #252525;
+  --text-primary: #f5f5f5;
+  --text-secondary: #d4d4d4;
+  --text-muted: #a0a0a0;
+  --border-color: #424242;
+  --input-bg: #333333;
+  --input-text: #f5f5f5;
+  --card-bg: #1e1e1e;
+  --card-border: #424242;
+  --button-primary-bg: #4a6cf7;
+  --button-primary-text: #ffffff;
+  --button-secondary-bg: #424242;
+  --button-secondary-text: #f0f0f0;
+  --link-color: #81a1f7;
+  --link-hover-color: #a3b9f8;
+  --selection-bg: rgba(74, 108, 247, 0.3);
+  --focus-ring: rgba(74, 108, 247, 0.5);
+  
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* App container */
+body.dark-mode .app-container {
+  background-color: var(--bg-primary);
+}
+
+/* Header */
+body.dark-mode .header {
+  background-color: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+body.dark-mode .logo {
+  color: var(--text-primary);
+}
+
+body.dark-mode .nav-links a {
+  color: var(--text-secondary);
+}
+
+body.dark-mode .nav-links a:hover {
+  color: var(--text-primary);
+}
+
+/* Main content */
+body.dark-mode .main-content {
+  background-color: var(--bg-primary);
+}
+
+/* Cards and Containers */
+body.dark-mode .card, 
+body.dark-mode .container, 
+body.dark-mode .section,
+body.dark-mode .profile-section,
+body.dark-mode .user-profile-container,
+body.dark-mode .practice-session-container,
+body.dark-mode .question-practice-container,
+body.dark-mode .question-detail-container,
+body.dark-mode .dashboard-container,
+body.dark-mode .journal-container,
+body.dark-mode .wellbeing-container,
+body.dark-mode .stat-card,
+body.dark-mode .activity-card,
+body.dark-mode .journal-entry,
+body.dark-mode .option-input-group {
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
+  color: var(--text-primary);
+}
+
+/* Specific components styling */
+body.dark-mode .journal-new-entry {
+  background-color: #252525;
+  border: 1px solid var(--border-color);
+}
+
+body.dark-mode .entries-list,
+body.dark-mode .journal-entries h2,
+body.dark-mode .journal-header h1,
+body.dark-mode .profile-header h1,
+body.dark-mode .profile-section h2,
+body.dark-mode .info-value,
+body.dark-mode .option-item,
+body.dark-mode .question-content h2,
+body.dark-mode .create-question-container h1,
+body.dark-mode .username-form-container,
+body.dark-mode .password-form-container,
+body.dark-mode .modal-content {
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+}
+
+body.dark-mode .info-label,
+body.dark-mode .stat-label,
+body.dark-mode .form-hint,
+body.dark-mode .entry-date,
+body.dark-mode .timeframe-selector label,
+body.dark-mode .progress-text {
+  color: var(--text-secondary);
+}
+
+/* Form elements */
+body.dark-mode input[type="text"],
+body.dark-mode input[type="email"],
+body.dark-mode input[type="password"],
+body.dark-mode input[type="url"],
+body.dark-mode textarea,
+body.dark-mode select,
+body.dark-mode .tags-input input {
+  background-color: var(--input-bg);
+  border-color: var(--border-color);
+  color: var(--input-text);
+}
+
+body.dark-mode .form-group label {
+  color: var(--text-secondary);
+}
+
+/* Component backgrounds */
+body.dark-mode .tags-list,
+body.dark-mode .question-option,
+body.dark-mode .explanation-panel,
+body.dark-mode .journal-header,
+body.dark-mode .category-tags,
+body.dark-mode .options-list {
+  background-color: var(--bg-secondary);
+}
+
+/* Tags and pills */
+body.dark-mode .tag,
+body.dark-mode .entry-tag,
+body.dark-mode .category-tag,
+body.dark-mode .difficulty-badge {
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+/* Buttons */
+body.dark-mode .submit-button,
+body.dark-mode .primary-button,
+body.dark-mode .next-button,
+body.dark-mode .add-button {
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-text);
+}
+
+body.dark-mode .cancel-button,
+body.dark-mode .secondary-button,
+body.dark-mode .previous-button {
+  background-color: var(--button-secondary-bg);
+  color: var(--button-secondary-text);
+}
+
+body.dark-mode .option-button {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body.dark-mode .option-button:hover:not(:disabled) {
+  background-color: var(--bg-secondary);
+}
+
+body.dark-mode .option-button.correct {
+  background-color: rgba(40, 167, 69, 0.3);
+  border-color: rgba(40, 167, 69, 0.5);
+  color: #4caf50;
+}
+
+body.dark-mode .option-button.incorrect {
+  background-color: rgba(220, 53, 69, 0.3);
+  border-color: rgba(220, 53, 69, 0.5);
+  color: #f44336;
+}
+
+body.dark-mode .delete-entry-button,
+body.dark-mode .delete-account-button,
+body.dark-mode .delete-confirm-button {
+  background-color: #d32f2f;
+  color: white;
+}
+
+body.dark-mode .delete-entry-button:hover,
+body.dark-mode .delete-account-button:hover,
+body.dark-mode .delete-confirm-button:hover {
+  background-color: #b71c1c;
+}
+
+/* Question navigation */
+body.dark-mode .question-nav-button {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+body.dark-mode .question-nav-button:hover {
+  border-color: var(--button-primary-bg);
+  background-color: var(--bg-secondary);
+}
+
+body.dark-mode .question-nav-button.active {
+  background-color: var(--button-primary-bg);
+  border-color: var(--button-primary-bg);
+  color: white;
+}
+
+body.dark-mode .question-nav-button.answered {
+  background-color: rgba(74, 108, 247, 0.3);
+  border-color: rgba(74, 108, 247, 0.5);
+}
+
+/* Progress bar */
+body.dark-mode .progress-bar {
+  background-color: var(--bg-tertiary);
+}
+
+body.dark-mode .progress-fill {
+  background-color: var(--button-primary-bg);
+}
+
+/* Footer */
+body.dark-mode .footer {
+  background-color: var(--bg-tertiary);
+  border-top: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+/* Error and success messages */
+body.dark-mode .error-message {
+  background-color: rgba(220, 53, 69, 0.2);
+  color: #ff6b6b;
+}
+
+body.dark-mode .success-message {
+  background-color: rgba(40, 167, 69, 0.2);
+  color: #51cf66;
+}
+
+/* Theme toggle button */
+.theme-toggle-button {
+  background-color: #4a6cf7;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.theme-toggle-button:hover {
+  background-color: #3a5ce5;
+}
+
+body.dark-mode .theme-toggle-button {
+  background-color: #ffcc00;
+  color: #333;
+}
+
+body.dark-mode .theme-toggle-button:hover {
+  background-color: #e6b800;
+}
+
+/* Modal overlay */
+body.dark-mode .modal-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+body.dark-mode .modal-content {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+}
+
+/* Custom profile components */
+body.dark-mode .change-username-button,
+body.dark-mode .change-password-button {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+body.dark-mode .change-username-button:hover,
+body.dark-mode .change-password-button:hover {
+  background-color: var(--bg-secondary);
+}
+
+body.dark-mode .logout-button {
+  background-color: #d32f2f;
+  color: white;
+}
+
+body.dark-mode .logout-button:hover {
+  background-color: #b71c1c;
+}
+
+/* Loading spinner */
+body.dark-mode .loading-spinner {
+  color: var(--text-secondary);
+}
+
+body.dark-mode .spinner {
+  border-color: rgba(255, 255, 255, 0.1);
+  border-left-color: var(--button-primary-bg);
+}
+
+/* Dashboard cards and components */
+body.dark-mode .dashboard-card,
+body.dark-mode .recent-activity-card,
+body.dark-mode .stats-card,
+body.dark-mode .welcome-card,
+body.dark-mode .stats-grid,
+body.dark-mode .stats-container {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* Dashboard headings and text */
+body.dark-mode .dashboard-header h1,
+body.dark-mode .dashboard-card h2,
+body.dark-mode .dashboard-card h3,
+body.dark-mode .recent-activity-card h2,
+body.dark-mode .welcome-card h2 {
+  color: var(--text-primary);
+}
+
+body.dark-mode .dashboard-card p,
+body.dark-mode .activity-item,
+body.dark-mode .activity-item-date,
+body.dark-mode .activity-item-title {
+  color: var(--text-secondary);
+}
+
+/* Tables */
+body.dark-mode table,
+body.dark-mode th,
+body.dark-mode td {
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+body.dark-mode thead th {
+  background-color: var(--bg-tertiary);
+}
+
+body.dark-mode tbody tr:nth-child(odd) {
+  background-color: var(--bg-secondary);
+}
+
+body.dark-mode tbody tr:nth-child(even) {
+  background-color: var(--card-bg);
+}
+
+/* Lists */
+body.dark-mode ul.nav-links li a,
+body.dark-mode .menu-items li a {
+  color: var(--text-secondary);
+}
+
+body.dark-mode ul.nav-links li a:hover,
+body.dark-mode .menu-items li a:hover {
+  color: var(--text-primary);
+}
+
+/* Toast notifications */
+body.dark-mode .toast,
+body.dark-mode .notification {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* Student and practice components */
+body.dark-mode .student-list,
+body.dark-mode .student-item,
+body.dark-mode .practice-card,
+body.dark-mode .exam-card,
+body.dark-mode .assignment-card {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* Background elements */
+body.dark-mode .auth-container,
+body.dark-mode .login-container,
+body.dark-mode .register-container {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Additional common components */
+body.dark-mode a {
+  color: var(--link-color);
+}
+
+body.dark-mode a:hover {
+  color: var(--link-hover-color);
+}
+
+body.dark-mode hr {
+  border-color: var(--border-color);
+}
+
+body.dark-mode code {
+  background-color: var(--bg-tertiary);
+  color: #f06595;
+}
+
+/* Form status and validation */
+body.dark-mode .form-control.is-invalid,
+body.dark-mode .was-validated .form-control:invalid {
+  border-color: #dc3545;
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+body.dark-mode .form-control.is-valid,
+body.dark-mode .was-validated .form-control:valid {
+  border-color: #28a745;
+  background-color: rgba(40, 167, 69, 0.1);
+}
+
+/* Text selection */
+body.dark-mode ::selection {
+  background-color: var(--selection-bg);
+  color: white;
+}
+
+/* Focus styles for better accessibility */
+body.dark-mode :focus {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Override specific colors for better contrast */
+body.dark-mode .stat-value {
+  color: #6a8eff; /* Brighter blue for better visibility */
+}
+
+/* Special containers like Journal - additional rules */
+body.dark-mode .password-form-container,
+body.dark-mode .username-form-container {
+  background-color: #252525; /* Slightly lighter than card background */
+  border: 1px solid var(--border-color);
+}
+
+/* Tables and list style refinements */
+body.dark-mode table {
+  background-color: var(--bg-secondary);
+}
+
+body.dark-mode tbody tr:hover {
+  background-color: rgba(74, 108, 247, 0.1);
+}
+
+/* Mobile-specific dark mode adjustments */
+@media (max-width: 768px) {
+  body.dark-mode .mobile-question-container {
+    background-color: var(--bg-primary);
+  }
+  
+  body.dark-mode .mobile-navigation-buttons {
+    background-color: var(--bg-tertiary);
+    border-top: 1px solid var(--border-color);
+  }
+  
+  body.dark-mode .mobile-question-option {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+  }
+  
+  body.dark-mode .mobile-swipe-hint {
+    color: var(--text-muted);
+  }
+}
+
+/* Special form states */
+body.dark-mode input:disabled,
+body.dark-mode textarea:disabled,
+body.dark-mode select:disabled,
+body.dark-mode button:disabled {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Make buttons stand out more */
+body.dark-mode .logout-button,
+body.dark-mode .delete-account-button {
+  border: 1px solid transparent;
+}
+
+/* Important focus state for interactive elements */
+body.dark-mode input:focus,
+body.dark-mode textarea:focus,
+body.dark-mode select:focus,
+body.dark-mode .tags-input input:focus {
+  border-color: var(--button-primary-bg);
+  box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.25);
+} 

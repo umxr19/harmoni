@@ -1,17 +1,32 @@
-import { Navigate, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
+import logger from '../utils/logger';
 
 interface ProtectedRouteProps {
-    children: React.ReactNode;
+    children: React.ReactElement;
+    roles?: string[];
 }
 
-export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-    const token = localStorage.getItem('token');
-    const location = useLocation();
+export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, roles }) => {
+    const { currentUser, isLoading, isMockAuth } = useAuth();
 
-    if (!token) {
-        // Redirect to login but save the attempted location
-        return <Navigate to="/login" state={{ from: location }} replace />;
+    if (isMockAuth) {
+        logger.info('Using mock auth in ProtectedRoute');
     }
 
-    return <>{children}</>;
+    if (isLoading) {
+        return <div className="loading-spinner">Loading...</div>;
+    }
+
+    if (!currentUser) {
+        return <Navigate to="/login" replace />;
+    }
+
+    // Check if the user has the required role
+    if (roles && !roles.includes(currentUser.role)) {
+        return <Navigate to="/unauthorized" replace />;
+    }
+
+    return children;
 }; 

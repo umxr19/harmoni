@@ -1,0 +1,224 @@
+.progress-charts-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.chart-card {
+  background-color: #fff9f5; /* Light pastel background */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(255, 173, 173, 0.15);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chart-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(255, 173, 173, 0.25);
+}
+
+.chart-card h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #ff9e7d; /* Pastel orange */
+  font-weight: 600;
+}
+
+/* Make SVG charts responsive */
+.chart-card .recharts-responsive-container {
+  width: 100% !important;
+  height: 300px !important;
+}
+
+.chart-card svg {
+  overflow: visible;
+}
+
+/* Custom colors for charts */
+.recharts-default-tooltip {
+  background-color: #fff9f5 !important;
+  border: 1px solid #ffcf96 !important; /* Pastel yellow */
+  border-radius: 8px !important;
+  box-shadow: 0 4px 8px rgba(255, 173, 173, 0.15) !important;
+}
+
+.recharts-tooltip-label {
+  color: #ff9e7d !important; /* Pastel orange */
+}
+
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: rgba(255, 158, 125, 0.2) !important; /* Light orange */
+}
+
+.recharts-text {
+  fill: #5a5a5a !important; /* Dark gray for text */
+}
+
+.error-notification {
+  background-color: #fff0f5; /* Light pink background */
+  color: #ff7eb3; /* Pastel pink */
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  border-left: 4px solid #ff7eb3; /* Pastel pink */
+}
+
+@media (max-width: 992px) {
+  .progress-charts-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .chart-card .recharts-responsive-container {
+    height: 250px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .chart-card .recharts-responsive-container {
+    height: 200px !important;
+  }
+}
+
+.progress-chart-card {
+  background-color: #fff9f5; /* Light pastel background */
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(255, 173, 173, 0.15);
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+}
+
+.progress-chart-card:hover {
+  transform: translateY(-3px);
+}
+
+.chart-title {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 18px;
+  color: #ff9e7d; /* Pastel orange */
+  font-weight: 600;
+}
+
+.progress-container {
+  height: 12px;
+  background-color: rgba(255, 207, 150, 0.3); /* Light pastel yellow */
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.5s ease-in-out;
+  background: linear-gradient(to right, #ffcf96, #ff9e7d); /* Gradient from yellow to orange */
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.progress-value {
+  font-weight: bold;
+  color: #ff9e7d; /* Pastel orange */
+}
+
+.progress-label {
+  color: #5a5a5a;
+}
+
+.progress-percentage {
+  font-weight: bold;
+  color: #ff7eb3; /* Pastel pink */
+}
+
+/* Add styles for chart loading state */
+.chart-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  background-color: #fff9f5;
+  border-radius: 8px;
+  color: #ff9e7d;
+  font-size: 16px;
+  font-weight: 500;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* Ensure Recharts components display properly */
+.recharts-wrapper {
+  margin: 0 auto;
+}
+
+.recharts-surface {
+  overflow: visible;
+}
+
+/* Fix for tooltip positioning */
+.recharts-tooltip-wrapper {
+  z-index: 1000;
+}
+
+/* Ensure responsive containers work properly */
+.recharts-responsive-container {
+  width: 100% !important;
+}
+
+@media (max-width: 992px) {
+  .chart-loading {
+    height: 250px;
+  }
+}
+
+@media (max-width: 576px) {
+  .chart-loading {
+    height: 200px;
+  }
+}
+
+/* Add styles for chart error state */
+.chart-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  background-color: #fff0f5;
+  border-radius: 8px;
+  color: #ff7eb3;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 20px;
+  text-align: center;
+  border-left: 4px solid #ff7eb3;
+}
+
+@media (max-width: 992px) {
+  .chart-error {
+    height: 250px;
+  }
+}
+
+@media (max-width: 576px) {
+  .chart-error {
+    height: 200px;
+  }
+} 

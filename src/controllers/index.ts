@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import QuestionService from '../services/questionService';
 import Joi from 'joi';
 import { IQuestion } from '../models/question';
+import logger from '../utils/logger';
 
 const questionSchema = Joi.object({
     title: Joi.string().required(),
@@ -54,7 +55,7 @@ export default class IndexController {
 
     async addQuestion(req: Request, res: Response) {
         try {
-            console.log('Adding question with user:', req.user);
+            logger.info('Adding question with user:', req.user);
             
             const { error, value } = questionSchema.validate(req.body);
             if (error) {
@@ -67,14 +68,14 @@ export default class IndexController {
                 createdBy: req.user?.id
             };
 
-            console.log('Creating question with data:', questionData);
+            logger.info('Creating question with data:', questionData);
 
             const question = await this.questionService.addQuestion(questionData);
-            console.log('Question created:', question);
+            logger.info('Question created:', question);
 
             res.status(201).json(question);
         } catch (error) {
-            console.error('Error adding question:', error);
+            logger.error('Error adding question:', error);
             res.status(400).json({ error: 'Invalid question data' });
         }
     }

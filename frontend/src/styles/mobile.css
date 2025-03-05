@@ -1,0 +1,363 @@
+/**
+ * Mobile-specific styles for the Question Bank App
+ * These styles will be applied on top of the base styles for mobile devices
+ */
+
+/* Base mobile styles */
+:root {
+  --mobile-padding: 16px;
+  --mobile-font-size-small: 14px;
+  --mobile-font-size-medium: 16px;
+  --mobile-font-size-large: 18px;
+  --mobile-button-height: 48px;
+  --mobile-input-height: 48px;
+  --mobile-border-radius: 8px;
+}
+
+/* Apply mobile-friendly base styles */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape */
+    display: block; /* Fix for flex layout issues */
+  }
+
+  /* Container adjustments */
+  .container {
+    padding: var(--mobile-padding);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Typography adjustments */
+  h1 {
+    font-size: 1.8rem;
+    line-height: 1.3;
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  /* Form elements - simplified to avoid conflicts */
+  input, 
+  select, 
+  textarea {
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  /* Buttons */
+  .app-button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  /* Navigation */
+  nav {
+    padding: 12px var(--mobile-padding);
+  }
+
+  /* Cards */
+  .card {
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: var(--mobile-border-radius);
+  }
+
+  /* Tables */
+  table {
+    font-size: var(--mobile-font-size-small);
+  }
+
+  /* Grid adjustments */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* Hide elements on mobile */
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  /* App sections */
+  .app-sections-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .app-section-card {
+    padding: 20px;
+  }
+  
+  .app-section-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+    background-color: #f8f9fa;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  /* General styles */
+  body {
+    font-size: 15px;
+  }
+  
+  h1 {
+    font-size: 1.6rem;
+  }
+  
+  h2 {
+    font-size: 1.4rem;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+  }
+  
+  p {
+    font-size: 0.9rem;
+  }
+  
+  /* App sections */
+  .app-section-card {
+    padding: 15px;
+  }
+  
+  .app-section-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.8rem;
+  }
+  
+  /* Form elements */
+  input, 
+  select, 
+  textarea {
+    padding: 8px;
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+  
+  /* Buttons */
+  .app-button {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Small phones */
+@media (max-width: 375px) {
+  :root {
+    --mobile-padding: 12px;
+    --mobile-font-size-small: 12px;
+    --mobile-font-size-medium: 14px;
+    --mobile-font-size-large: 16px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+}
+
+/* Landscape orientation */
+@media (max-width: 768px) and (orientation: landscape) {
+  .full-height {
+    height: auto;
+    min-height: 100%;
+  }
+  
+  /* Adjust fixed elements in landscape */
+  .fixed-bottom {
+    position: static;
+  }
+}
+
+/* Specific component adjustments */
+
+/* Header */
+@media (max-width: 768px) {
+  .header {
+    padding: 12px var(--mobile-padding);
+  }
+  
+  .header-logo {
+    font-size: 20px;
+  }
+  
+  .header-nav {
+    display: none; /* Hide regular nav on mobile */
+  }
+  
+  .mobile-menu-button {
+    display: block; /* Show mobile menu button */
+  }
+}
+
+/* Mobile menu */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 1000;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.mobile-menu.open {
+  transform: translateX(0);
+}
+
+.mobile-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.mobile-menu-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.mobile-menu-items {
+  padding: 16px;
+}
+
+.mobile-menu-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+  font-size: var(--mobile-font-size-large);
+}
+
+/* Dashboard */
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-card {
+    margin-bottom: 16px;
+  }
+}
+
+/* Question cards */
+@media (max-width: 768px) {
+  .question-card {
+    padding: 16px;
+  }
+  
+  .question-text {
+    font-size: var(--mobile-font-size-medium);
+    margin-bottom: 16px;
+  }
+  
+  .question-options {
+    margin-bottom: 16px;
+  }
+  
+  .question-option {
+    padding: 12px;
+    margin-bottom: 8px;
+  }
+}
+
+/* Practice session */
+@media (max-width: 768px) {
+  .practice-controls {
+    flex-direction: column;
+  }
+  
+  .practice-timer {
+    margin-bottom: 16px;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Store */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .product-card {
+    margin-bottom: 16px;
+  }
+  
+  .product-filters {
+    flex-direction: column;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (max-width: 768px) {
+  /* Increase spacing for touch targets */
+  .nav-item,
+  .dropdown-item,
+  .checkbox-label,
+  .radio-label {
+    padding: 12px 8px;
+    margin-bottom: 8px;
+  }
+  
+  /* Ensure checkboxes and radio buttons are easy to tap */
+  input[type="checkbox"],
+  input[type="radio"] {
+    width: 24px;
+    height: 24px;
+  }
+  
+  /* Make sure form elements have enough spacing */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  /* Adjust select dropdowns */
+  select {
+    background-size: 12px;
+    padding-right: 30px;
+  }
+}
+
+/* Fix for iOS Safari 100vh issue */
+@supports (-webkit-touch-callout: none) {
+  .full-height {
+    height: -webkit-fill-available;
+  }
+} 

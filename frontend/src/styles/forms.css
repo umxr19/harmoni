@@ -1,0 +1,137 @@
+/* Global form styles */
+input, 
+select, 
+textarea,
+.form-control {
+  background-color: white;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 15px;
+  box-shadow: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+.form-control:focus {
+  outline: none;
+  border-color: #4a6cf7;
+  box-shadow: 0 0 0 2px rgba(74, 108, 247, 0.2);
+}
+
+/* Style for checkboxes and radio buttons */
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;
+  margin-right: 8px;
+}
+
+/* Style for select dropdowns */
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  padding-right: 30px;
+}
+
+/* Style for buttons */
+button,
+.btn,
+input[type="submit"],
+input[type="button"] {
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+button:hover,
+.btn:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+  background-color: #3a5ce5;
+  transform: translateY(-2px);
+}
+
+/* Form layout */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Placeholder styling */
+::placeholder {
+  color: #999;
+  opacity: 1;
+}
+
+/* Disabled state */
+input:disabled,
+select:disabled,
+textarea:disabled,
+button:disabled,
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Error state */
+.form-error input,
+.form-error select,
+.form-error textarea,
+input.error,
+select.error,
+textarea.error {
+  border-color: #dc3545;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 15px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  input, 
+  select, 
+  textarea,
+  .form-control {
+    font-size: 16px; /* Prevent zoom on iOS */
+    padding: 12px 10px;
+  }
+  
+  button,
+  .btn,
+  input[type="submit"],
+  input[type="button"] {
+    width: 100%;
+    padding: 12px 16px;
+  }
+  
+  /* Increase touch target size */
+  input[type="checkbox"],
+  input[type="radio"] {
+    width: 20px;
+    height: 20px;
+  }
+} 

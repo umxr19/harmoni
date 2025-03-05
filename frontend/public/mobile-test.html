@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile API Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    h1 {
+      color: #333;
+    }
+    .card {
+      background: #f9f9f9;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    input {
+      padding: 8px;
+      margin-bottom: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .result {
+      background: #f0f0f0;
+      padding: 15px;
+      border-radius: 4px;
+      margin-top: 10px;
+      overflow-wrap: break-word;
+      white-space: pre-wrap;
+    }
+    .success {
+      color: #4CAF50;
+    }
+    .error {
+      color: #f44336;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mobile API Test</h1>
+  
+  <div class="card">
+    <h2>Connection Test</h2>
+    <button onclick="testConnection()">Test API Connection</button>
+    <div id="connection-result" class="result">Results will appear here...</div>
+  </div>
+  
+  <div class="card">
+    <h2>Login Test</h2>
+    <input type="email" id="email" placeholder="Email" value="test@example.com">
+    <input type="password" id="password" placeholder="Password" value="password123">
+    <button onclick="testLogin()">Test Login</button>
+    <div id="login-result" class="result">Results will appear here...</div>
+  </div>
+  
+  <div class="card">
+    <h2>Registration Test</h2>
+    <input type="text" id="username" placeholder="Username" value="mobileuser">
+    <input type="email" id="reg-email" placeholder="Email" value="mobile@example.com">
+    <input type="password" id="reg-password" placeholder="Password" value="password123">
+    <button onclick="testRegistration()">Test Registration</button>
+    <div id="registration-result" class="result">Results will appear here...</div>
+  </div>
+  
+  <div class="card">
+    <h2>LocalStorage Test</h2>
+    <button onclick="testLocalStorage()">Test LocalStorage</button>
+    <div id="storage-result" class="result">Results will appear here...</div>
+  </div>
+  
+  <div class="card">
+    <h2>Browser Information</h2>
+    <button onclick="showBrowserInfo()">Show Browser Info</button>
+    <div id="browser-result" class="result">Results will appear here...</div>
+  </div>
+  
+  <script>
+    // Get the base API URL from the current hostname
+    const API_URL = `http://${window.location.hostname}:3000`;
+    
+    // Test API connection
+    async function testConnection() {
+      const resultElement = document.getElementById('connection-result');
+      resultElement.innerHTML = 'Testing connection...';
+      
+      try {
+        const response = await fetch(`${API_URL}/api/debug/mobile-ping`);
+        const data = await response.json();
+        
+        resultElement.innerHTML = `<span class="success">✅ Connection successful!</span>
+          <br>Response: ${JSON.stringify(data, null, 2)}
+          <br>API URL: ${API_URL}`;
+      } catch (error) {
+        resultElement.innerHTML = `<span class="error">❌ Connection failed!</span>
+          <br>Error: ${error.message}
+          <br>API URL: ${API_URL}`;
+      }
+    }
+    
+    // Test login
+    async function testLogin() {
+      const resultElement = document.getElementById('login-result');
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      resultElement.innerHTML = 'Testing login...';
+      
+      try {
+        const response = await fetch(`${API_URL}/api/auth/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, password })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          // Store token in localStorage
+          if (data.token) {
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+          }
+          
+          resultElement.innerHTML = `<span class="success">✅ Login successful!</span>
+            <br>Response: ${JSON.stringify(data, null, 2)}
+            <br>Token stored in localStorage: ${data.token ? 'Yes' : 'No'}`;
+        } else {
+          resultElement.innerHTML = `<span class="error">❌ Login failed!</span>
+            <br>Status: ${response.status}
+            <br>Response: ${JSON.stringify(data, null, 2)}`;
+        }
+      } catch (error) {
+        resultElement.innerHTML = `<span class="error">❌ Login failed!</span>
+          <br>Error: ${error.message}`;
+      }
+    }
+    
+    // Test registration
+    async function testRegistration() {
+      const resultElement = document.getElementById('registration-result');
+      const username = document.getElementById('username').value;
+      const email = document.getElementById('reg-email').value;
+      const password = document.getElementById('reg-password').value;
+      
+      resultElement.innerHTML = 'Testing registration...';
+      
+      try {
+        const response = await fetch(`${API_URL}/api/auth/register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, email, password })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          resultElement.innerHTML = `<span class="success">✅ Registration successful!</span>
+            <br>Response: ${JSON.stringify(data, null, 2)}`;
+        } else {
+          resultElement.innerHTML = `<span class="error">❌ Registration failed!</span>
+            <br>Status: ${response.status}
+            <br>Response: ${JSON.stringify(data, null, 2)}`;
+        }
+      } catch (error) {
+        resultElement.innerHTML = `<span class="error">❌ Registration failed!</span>
+          <br>Error: ${error.message}`;
+      }
+    }
+    
+    // Test localStorage
+    function testLocalStorage() {
+      const resultElement = document.getElementById('storage-result');
+      
+      try {
+        // Test writing to localStorage
+        const testValue = 'test-value-' + Date.now();
+        localStorage.setItem('mobileTest', testValue);
+        
+        // Test reading from localStorage
+        const readValue = localStorage.getItem('mobileTest');
+        
+        if (readValue === testValue) {
+          resultElement.innerHTML = `<span class="success">✅ LocalStorage working correctly!</span>
+            <br>Value written: ${testValue}
+            <br>Value read: ${readValue}
+            <br>All keys: ${Object.keys(localStorage).join(', ')}`;
+        } else {
+          resultElement.innerHTML = `<span class="error">❌ LocalStorage read/write mismatch!</span>
+            <br>Value written: ${testValue}
+            <br>Value read: ${readValue}`;
+        }
+      } catch (error) {
+        resultElement.innerHTML = `<span class="error">❌ LocalStorage error!</span>
+          <br>Error: ${error.message}`;
+      }
+    }
+    
+    // Show browser information
+    function showBrowserInfo() {
+      const resultElement = document.getElementById('browser-result');
+      
+      const info = {
+        userAgent: navigator.userAgent,
+        platform: navigator.platform,
+        vendor: navigator.vendor,
+        language: navigator.language,
+        cookiesEnabled: navigator.cookieEnabled,
+        localStorage: typeof localStorage !== 'undefined',
+        sessionStorage: typeof sessionStorage !== 'undefined',
+        online: navigator.onLine,
+        screenWidth: window.screen.width,
+        screenHeight: window.screen.height,
+        windowWidth: window.innerWidth,
+        windowHeight: window.innerHeight,
+        pixelRatio: window.devicePixelRatio
+      };
+      
+      resultElement.innerHTML = JSON.stringify(info, null, 2);
+    }
+    
+    // Show browser info on load
+    window.onload = function() {
+      showBrowserInfo();
+    };
+  </script>
+</body>
+</html>

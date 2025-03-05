@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt, { JsonWebTokenError } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
+import logger from '../utils/logger';
 
 interface JwtPayload {
     id: string;
-    email: string;
     role: string;
 }
 
@@ -15,64 +15,55 @@ declare global {
     }
 }
 
-export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
+export const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (!token) {
+        return res.status(401).json({ message: 'Authentication token required' });
+    }
+
     try {
-        const authHeader = req.headers.authorization;
-        console.log('Auth header:', authHeader);
-
-        const token = authHeader && authHeader.split(' ')[1];
-        console.log('Extracted token:', token?.substring(0, 20) + '...');
-
-        if (!token) {
-            return res.status(401).json({ error: 'No token provided' });
-        }
-
-        // Log JWT secret info
-        const secret = process.env.JWT_SECRET;
-        if (!secret) {
-            console.error('JWT_SECRET is not set');
-            return res.status(500).json({ error: 'Server configuration error' });
-        }
-        console.log('JWT secret length:', secret.length);
-
-        try {
-            const decoded = jwt.verify(token, secret) as JwtPayload;
-            console.log('Decoded token payload:', {
-                id: decoded.id,
-                email: decoded.email,
-                role: decoded.role
-            });
-            req.user = decoded;
-            next();
-        } catch (error) {
-            if (error instanceof JsonWebTokenError) {
-                console.error('JWT verification failed:', error.message);
-                return res.status(403).json({ 
-                    error: 'Token verification failed',
-                    details: error.message 
-                });
-            }
-            throw error;
-        }
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key') as JwtPayload;
+        req.user = decoded;
+        next();
     } catch (error) {
-        console.error('Auth middleware error:', error);
-        return res.status(500).json({ error: 'Authentication failed' });
+        return res.status(403).json({ message: 'Invalid token' });
     }
 };
 
 export const authorizeRoles = (...roles: string[]) => {
     return (req: Request, res: Response, next: NextFunction) => {
-        console.log('Authorization check:', {
-            user: req.user,
-            requiredRoles: roles,
-            hasRole: req.user && roles.includes(req.user.role)
-        });
-        
-        if (!req.user || !roles.includes(req.user.role)) {
-            return res.status(403).json({ 
-                error: `Unauthorized - Required roles: ${roles.join(', ')}, User role: ${req.user?.role}` 
-            });
+        if (!req.user) {
+            return res.status(401).json({ message: 'Authentication required' });
         }
+
+        if (!roles.includes(req.user.role)) {
+            return res.status(403).json({ message: 'Access forbidden' });
+        }
+
         next();
     };
+};
+
+// Middleware to ensure student access
+export const ensureStudent = (req: Request, res: Response, next: NextFunction) => {
+    if (!req.user) {
+        return res.status(401).json({ error: 'User not authenticated' });
+    }
+
+    // Log student check for debugging
+    logger.info('Student check:', {
+        userRole: req.user.role,
+        path: req.path
+    });
+
+    if (req.user.role !== 'student') {
+        return res.status(403).json({
+            error: 'Access denied',
+            message: 'Only students can access this resource'
+        });
+    }
+
+    next();
 }; 

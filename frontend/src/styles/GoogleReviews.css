@@ -1,0 +1,165 @@
+.google-reviews-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  margin-bottom: 30px;
+}
+
+.google-reviews-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.place-info h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.rating-container {
+  display: flex;
+  align-items: center;
+}
+
+.stars {
+  margin-right: 10px;
+}
+
+.star {
+  color: #e0e0e0;
+  font-size: 1.2rem;
+}
+
+.star.filled {
+  color: #FFC107;
+}
+
+.rating-text {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.google-badge a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #4285F4;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.review-item {
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.reviewer-info {
+  display: flex;
+  align-items: center;
+}
+
+.reviewer-photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.reviewer-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.review-date {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.review-text {
+  color: #333;
+  line-height: 1.5;
+}
+
+.reviews-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.write-review-button, .view-all-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.write-review-button {
+  background-color: #4285F4;
+  color: white;
+}
+
+.write-review-button:hover {
+  background-color: #3367D6;
+}
+
+.view-all-button {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.view-all-button:hover {
+  background-color: #e0e0e0;
+}
+
+.google-reviews-loading, .google-reviews-error, .no-reviews {
+  text-align: center;
+  padding: 30px;
+  color: #666;
+}
+
+.google-reviews-error {
+  color: #d32f2f;
+}
+
+@media (max-width: 768px) {
+  .google-reviews-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .google-badge {
+    margin-top: 15px;
+  }
+  
+  .reviews-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .write-review-button, .view-all-button {
+    width: 100%;
+    text-align: center;
+  }
+} 

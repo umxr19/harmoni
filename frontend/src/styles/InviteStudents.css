@@ -1,0 +1,140 @@
+.invite-students-container {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.invite-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.invite-header h1 {
+  margin: 0;
+  color: #333;
+  font-size: 2.2rem;
+}
+
+.back-button {
+  background-color: #f8f9fa;
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: #e9ecef;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #dc3545;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.success-message {
+  background-color: #d4edda;
+  color: #28a745;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.invite-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.form-group small {
+  display: block;
+  margin-top: 8px;
+  color: #6c757d;
+  font-size: 0.85rem;
+}
+
+.send-invites-button {
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: 100%;
+}
+
+.send-invites-button:hover {
+  background-color: #3a5ce5;
+}
+
+.send-invites-button:disabled {
+  background-color: #a0aee9;
+  cursor: not-allowed;
+}
+
+.invite-info {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 25px;
+}
+
+.invite-info h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.invite-info ul {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.invite-info li {
+  margin-bottom: 10px;
+  color: #6c757d;
+}
+
+@media (max-width: 768px) {
+  .invite-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .back-button {
+    width: 100%;
+  }
+} 

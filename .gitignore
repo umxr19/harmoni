@@ -1,1 +1,13 @@
 .env 
+node_modules
+
+# Build output
+dist/
+build/
+
+# Test coverage
+coverage/
+
+# System files
+.DS_Store
+Thumbs.db
