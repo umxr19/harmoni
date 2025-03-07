@@ -1,0 +1,63 @@
+/* 
+  Global Font Settings
+  This file provides consistent font usage across the application
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Apply Poppins to all elements by default */
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Typography styles with Poppins */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
+p, span, div, a, button, input, textarea, select {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+}
+
+/* Font weight classes */
+.font-light {
+  font-weight: 300;
+}
+
+.font-regular {
+  font-weight: 400;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+/* Button text */
+button, .btn {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+
+/* Form elements */
+input, 
+select, 
+textarea {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+}
+
+/* Navigation */
+nav, .nav-link {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+} 
