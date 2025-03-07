@@ -1,11 +1,17 @@
 import express from 'express';
 import { setRoutes } from './routes/index';
 import mongoose from 'mongoose';
-import { databaseConfig } from './config/database';
+import { databaseConfig, getMaskedConnectionString } from './config/database';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import path from 'path';
 import logger from './utils/logger';
+import openaiRoutes from './routes/openaiRoutes';
+import config from './config';
+import activityRoutes from './routes/activityRoutes';
+import userRoutes from './routes/userRoutes';
+import analyticsRoutes from './routes/analyticsRoutes';
+import healthRoutes from './routes/healthRoutes';
 
 dotenv.config();
 
@@ -15,7 +21,10 @@ const app = express();
 let isDatabaseConnected = false;
 
 // Middleware setup
-app.use(cors());
+app.use(cors({
+    origin: config.cors.origin,
+    credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -37,6 +46,9 @@ app.use((req, res, next) => {
 
 // Set up routes
 setRoutes(app);
+
+// Register OpenAI routes
+app.use('/api/openai', openaiRoutes);
 
 // Add middleware to check database connection
 app.use((req, res, next) => {
@@ -117,11 +129,8 @@ if (process.env.NODE_ENV === 'production') {
 
 // Error handling middleware
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-    logger.error(err.stack);
-    res.status(500).json({ 
-        error: 'Something went wrong!',
-        message: process.env.NODE_ENV === 'development' ? err.message : undefined
-    });
+    logger.error('Error:', err);
+    res.status(500).json({ error: 'Internal server error' });
 });
 
 // Helper function to get readable mongoose connection state
@@ -173,19 +182,14 @@ function getMockData(path: string): any {
     return mockData[path] || { message: 'No mock data available for this endpoint' };
 }
 
-// Database connection with fallback
+// Database connection with proper error handling
 const connectToDatabase = async () => {
     try {
         logger.info('Attempting to connect to MongoDB Atlas...');
-        logger.info('Using connection string:', maskConnectionString(databaseConfig.uri));
+        logger.info('Using connection string:', getMaskedConnectionString(databaseConfig.uri));
         
-        // Try connecting to the primary MongoDB URI with increased timeout
-        const options = {
-            ...databaseConfig.options,
-            serverSelectionTimeoutMS: 20000, // Increase timeout to 20 seconds
-        };
-        
-        await mongoose.connect(databaseConfig.uri, options);
+        // Try connecting to MongoDB Atlas
+        await mongoose.connect(databaseConfig.uri, databaseConfig.options);
         logger.info('Connected to MongoDB Atlas successfully');
         isDatabaseConnected = true;
         return true;
@@ -199,13 +203,12 @@ const connectToDatabase = async () => {
             logger.error('2. IP address not whitelisted in MongoDB Atlas');
             logger.error('3. Invalid connection string');
             
-            // Try to get more detailed error information
             if (error.reason) {
                 logger.error('Reason:', error.reason.toString());
             }
         }
         
-        // If primary connection fails, try connecting to local MongoDB
+        // If Atlas connection fails, try connecting to local MongoDB
         try {
             logger.info('Attempting to connect to local MongoDB...');
             await mongoose.connect(databaseConfig.localUri, databaseConfig.options);
@@ -216,7 +219,6 @@ const connectToDatabase = async () => {
             logger.error('Local MongoDB connection error:', localError.name);
             logger.error('Error message:', localError.message);
             logger.info('Running in memory mode - data will not be persisted');
-            // Continue running the app even without database
             isDatabaseConnected = false;
             return false;
         }
@@ -291,5 +293,11 @@ logger.info('Environment variables loaded:', {
     JWT_SECRET_exists: !!process.env.JWT_SECRET,
     JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN
 });
+
+// Routes
+app.use('/api/activities', activityRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/analytics', analyticsRoutes);
+app.use('/api', healthRoutes);
 
 export default app;

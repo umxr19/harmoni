@@ -1,5 +1,5 @@
 import express from 'express';
-import { authenticateJWT } from '../middleware/authMiddleware';
+import { protect } from '../middleware/authMiddleware';
 import { 
     startPractice, 
     submitAnswer, 
@@ -12,7 +12,7 @@ import {
 const router = express.Router();
 
 // All routes require authentication
-router.use(authenticateJWT);
+router.use(protect);
 
 // Practice sets routes - must come before parameterized routes
 router.get('/sets', getAllPracticeSets);

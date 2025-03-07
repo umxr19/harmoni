@@ -2,6 +2,8 @@ import express from 'express';
 import activityRoutes from './routes/activityRoutes';
 import userRoutes from './routes/userRoutes';
 import analyticsRoutes from './routes/analyticsRoutes';
+import logger from './utils/logger';
+import HarmoniAI from './components/HarmoniAI';
 
 const app = express();
 

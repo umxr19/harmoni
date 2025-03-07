@@ -4,7 +4,7 @@ import Activity from '../models/activity';
 import mongoose from 'mongoose';
 import logger from '../utils/logger';
 
-class WellbeingService {
+export class WellbeingService {
   /**
    * Save a new mood rating
    */
@@ -297,4 +297,6 @@ class WellbeingService {
   }
 }
 
-export default WellbeingService; 
+// Export a singleton instance
+const wellbeingService = new WellbeingService();
+export default wellbeingService; 

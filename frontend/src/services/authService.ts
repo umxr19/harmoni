@@ -401,6 +401,11 @@ class AuthManager {
       }
     }
   }
+
+  // Get the current token
+  public getToken(): string | null {
+    return localStorage.getItem('token');
+  }
 }
 
 // Create a singleton instance

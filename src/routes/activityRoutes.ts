@@ -1,11 +1,11 @@
 import express from 'express';
-import { authenticateJWT } from '../middleware/authMiddleware';
+import { protect } from '../middleware/authMiddleware';
 import * as activityController from '../controllers/activityController';
 
 const router = express.Router();
 
 // All routes require authentication
-router.use(authenticateJWT);
+router.use(protect);
 
 // Log a new activity
 router.post('/user/activity', activityController.logActivity);

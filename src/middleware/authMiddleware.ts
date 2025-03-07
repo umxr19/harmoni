@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload as BaseJwtPayload } from 'jsonwebtoken';
 import logger from '../utils/logger';
+import config from '../config';
 
-interface JwtPayload {
+export interface JwtPayload extends BaseJwtPayload {
     id: string;
     role: string;
 }
@@ -15,20 +16,41 @@ declare global {
     }
 }
 
-export const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-
-    if (!token) {
-        return res.status(401).json({ message: 'Authentication token required' });
-    }
-
+export const protect = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key') as JwtPayload;
-        req.user = decoded;
-        next();
+        // Get token from header
+        const token = req.headers.authorization?.replace('Bearer ', '');
+        const jwtSecret = config.jwt.secret;
+
+        if (!token || !jwtSecret) {
+            return res.status(401).json({
+                success: false,
+                message: 'Not authorized to access this route'
+            });
+        }
+
+        try {
+            // Verify token with proper type checking
+            const decoded = jwt.verify(token, jwtSecret) as JwtPayload;
+            
+            if (!decoded.id || !decoded.role) {
+                throw new Error('Invalid token payload');
+            }
+
+            // Add user to request
+            req.user = decoded;
+            next();
+        } catch (jwtError) {
+            return res.status(401).json({
+                success: false,
+                message: 'Invalid or expired token'
+            });
+        }
     } catch (error) {
-        return res.status(403).json({ message: 'Invalid token' });
+        return res.status(401).json({
+            success: false,
+            message: 'Not authorized to access this route'
+        });
     }
 };
 

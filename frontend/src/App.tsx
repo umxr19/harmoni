@@ -75,6 +75,8 @@ import SubjectPage from './pages/SubjectPage';
 import FeaturesHome from './pages/FeaturesHome';
 import Loading from './components/Loading';
 import logger from './utils/logger';
+import HarmoniAI from './components/HarmoniAI';
+import { AccountManagement } from './pages/AccountManagement';
 
 // Lazy load larger components/pages
 const StudyScheduleLazy = lazy(() => import('./pages/StudySchedule'));
@@ -88,10 +90,13 @@ const UserSettingsLazy = lazy(() => import('./pages/UserSettings').then(module =
 const PracticeLazy = lazy(() => import('./pages/Practice').then(module => ({ default: module.Practice })));
 const PracticeSessionLazy = lazy(() => import('./pages/PracticeSession').then(module => ({ default: module.PracticeSession })));
 const PracticeResultsLazy = lazy(() => import('./pages/PracticeResults').then(module => ({ default: module.PracticeResults })));
-// const ExamsLazy = lazy(() => import('./pages/Exams'));
-// const ExamDetailLazy = lazy(() => import('./pages/ExamDetail'));
+const ExamsListLazy = lazy(() => import('./pages/ExamsList').then(module => ({ default: module.ExamsList })));
+const ExamStartLazy = lazy(() => import('./pages/ExamStart').then(module => ({ default: module.ExamStart })));
 const ExamAttemptLazy = lazy(() => import('./pages/ExamAttempt').then(module => ({ default: module.ExamAttempt })));
 const ExamResultsLazy = lazy(() => import('./pages/ExamResults').then(module => ({ default: module.ExamResults })));
+const WellbeingSuiteLazy = lazy(() => import('./pages/WellbeingSuitePage'));
+// const ExamsLazy = lazy(() => import('./pages/Exams'));
+// const ExamDetailLazy = lazy(() => import('./pages/ExamDetail'));
 
 function App() {
   const [isOffline, setIsOffline] = useState(false);
@@ -261,14 +266,14 @@ function App() {
                     <CreateQuestion />
                   </ProtectedRoute>
                 } />
-                {/* <Route path="/exams" element={
+                <Route path="/exams" element={
                   <ProtectedRoute>
-                    <ExamsLazy />
+                    <ExamsListLazy />
                   </ProtectedRoute>
-                } /> */}
+                } />
                 <Route path="/exams/start/:examId" element={
                   <ProtectedRoute>
-                    <ExamStart />
+                    <ExamStartLazy />
                   </ProtectedRoute>
                 } />
                 <Route path="/exams/attempt/:attemptId" element={
@@ -322,6 +327,11 @@ function App() {
                     <UserProfileLazy />
                   </ProtectedRoute>
                 } />
+                <Route path="/account-management" element={
+                  <ProtectedRoute>
+                    <AccountManagement />
+                  </ProtectedRoute>
+                } />
                 <Route path="/settings" element={
                   <ProtectedRoute>
                     <UserSettingsLazy />
@@ -358,11 +368,11 @@ function App() {
                   <Route path="users" element={<AdminUsers />} />
                   <Route path="settings" element={<AdminSettings />} />
                 </Route>
-                {/* <Route path="/wellbeing" element={
+                <Route path="/wellbeing" element={
                   <ProtectedRoute>
                     <WellbeingSuiteLazy />
                   </ProtectedRoute>
-                } /> */}
+                } />
                 <Route path="/journal" element={
                   <ProtectedRoute>
                     <JournalPage />
@@ -388,6 +398,7 @@ function App() {
             </Suspense>
           </ErrorBoundary>
         </main>
+        <HarmoniAI />
         <Footer />
       </div>
     </ThemeProvider>

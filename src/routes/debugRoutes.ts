@@ -1,7 +1,8 @@
 import express, { Router } from 'express';
-import { authenticateJWT } from '../middleware/authMiddleware';
+import { protect } from '../middleware/authMiddleware';
 import mongoose from 'mongoose';
 import logger from '../utils/logger';
+import { redisService } from '../services/redisService';
 
 const router = Router();
 
@@ -108,7 +109,7 @@ router.get('/routes', (req, res) => {
  * @desc    Test authentication
  * @access  Private
  */
-router.get('/auth', authenticateJWT, (req, res) => {
+router.get('/auth', protect, (req, res) => {
   res.json({
     message: 'Authentication successful',
     user: req.user
@@ -160,6 +161,48 @@ router.get('/mobile-ping', (req, res) => {
     headers: req.headers,
     ip: req.ip
   });
+});
+
+/**
+ * @route   POST /api/debug/test-rate-limit
+ * @desc    Test rate limiting without using OpenAI tokens
+ * @access  Private
+ */
+router.post('/test-rate-limit', protect, async (req, res) => {
+  try {
+    const userId = req.user?.id;
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'User not authenticated'
+      });
+    }
+
+    // Check rate limit using Redis service
+    const rateLimitCheck = await redisService.checkRateLimit(userId);
+    const remainingRequests = await redisService.getRemainingRequests(userId);
+
+    if (!rateLimitCheck.allowed) {
+      return res.status(429).json({
+        success: false,
+        message: rateLimitCheck.error || 'Rate limit exceeded',
+        remainingRequests
+      });
+    }
+
+    // If we get here, the request is allowed
+    res.json({
+      success: true,
+      message: 'Request allowed',
+      remainingRequests
+    });
+  } catch (error) {
+    logger.error('Error in test-rate-limit:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error testing rate limit'
+    });
+  }
 });
 
 export default router; 

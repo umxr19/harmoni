@@ -1,12 +1,12 @@
 import express from 'express';
-import { authenticateJWT, authorizeRoles } from '../middleware/authMiddleware';
+import { protect, authorizeRoles } from '../middleware/authMiddleware';
 import { AnalyticsController } from '../controllers/analyticsController';
 
 const router = express.Router();
 const analyticsController = new AnalyticsController();
 
-// All routes require authentication
-router.use(authenticateJWT);
+// Protect all routes
+router.use(protect);
 
 // Student analytics routes
 router.get('/student/current', authorizeRoles('student'), analyticsController.getStudentAnalytics);

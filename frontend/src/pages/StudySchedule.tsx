@@ -71,7 +71,7 @@ const StudySchedule: React.FC = () => {
   const handleRegenerateSchedule = async () => {
     setRegenerating(true);
     try {
-      const response = await studyScheduleService.generateWeeklySchedule(preferences);
+      const response = await studyScheduleService.refreshSchedule(preferences);
       setSchedule(response.data);
       setUsingMockData(response.usingMockData || false);
       

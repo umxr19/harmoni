@@ -1,0 +1,1 @@
+export const isOfflineMode = process.env.REACT_APP_OFFLINE_MODE === 'true'; 
