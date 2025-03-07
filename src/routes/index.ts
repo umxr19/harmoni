@@ -8,6 +8,7 @@ import analyticsRoutes from './analyticsRoutes';
 import debugRoutes from './debugRoutes';
 import examRoutes from './examRoutes';
 import wellbeingRoutes from './wellbeingRoutes';
+import studyScheduleRoutes from './studyScheduleRoutes';
 import logger from '../utils/logger';
 
 export const setRoutes = (app: Express) => {
@@ -20,6 +21,7 @@ export const setRoutes = (app: Express) => {
     app.use('/api/analytics', analyticsRoutes);
     app.use('/api/exams', examRoutes);
     app.use('/api/wellbeing', wellbeingRoutes);
+    app.use('/api/study', studyScheduleRoutes);
 
     // Debug routes (only in development)
     if (process.env.NODE_ENV !== 'production') {

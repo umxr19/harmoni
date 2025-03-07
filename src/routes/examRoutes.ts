@@ -1,5 +1,5 @@
 import express from 'express';
-import { authenticateJWT, authorizeRoles } from '../middleware/authMiddleware';
+import { protect, authorizeRoles } from '../middleware/authMiddleware';
 import ExamService from '../services/examService';
 import logger from '../utils/logger';
 
@@ -23,7 +23,7 @@ router.get('/public', async (req, res) => {
 });
 
 // Get exams created by a teacher
-router.get('/teacher', authenticateJWT, authorizeRoles('teacher', 'admin'), async (req, res) => {
+router.get('/teacher', protect, authorizeRoles('teacher', 'admin'), async (req, res) => {
   try {
     if (!req.user) {
       return res.status(401).json({ error: 'User not authenticated' });
@@ -52,7 +52,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Create a new exam
-router.post('/', authenticateJWT, authorizeRoles('teacher', 'admin'), async (req, res) => {
+router.post('/', protect, authorizeRoles('teacher', 'admin'), async (req, res) => {
   try {
     if (!req.user) {
       return res.status(401).json({ error: 'User not authenticated' });
@@ -70,7 +70,7 @@ router.post('/', authenticateJWT, authorizeRoles('teacher', 'admin'), async (req
 });
 
 // Start an exam attempt
-router.post('/:id/start', authenticateJWT, async (req, res) => {
+router.post('/:id/start', protect, async (req, res) => {
   try {
     if (!req.user) {
       return res.status(401).json({ error: 'User not authenticated' });
@@ -85,7 +85,7 @@ router.post('/:id/start', authenticateJWT, async (req, res) => {
 });
 
 // Submit an exam attempt
-router.post('/:id/submit', authenticateJWT, async (req, res) => {
+router.post('/:id/submit', protect, async (req, res) => {
   try {
     const result = await examService.submitExam(req.body.attemptId, req.body.answers);
     res.json(result);
@@ -96,7 +96,7 @@ router.post('/:id/submit', authenticateJWT, async (req, res) => {
 });
 
 // Get exam results
-router.get('/:id/results/:attemptId', authenticateJWT, async (req, res) => {
+router.get('/:id/results/:attemptId', protect, async (req, res) => {
   try {
     const results = await examService.getExamResults(req.params.attemptId);
     if (!results) {
@@ -110,7 +110,7 @@ router.get('/:id/results/:attemptId', authenticateJWT, async (req, res) => {
 });
 
 // Create sample exams (for testing)
-router.post('/create-samples', authenticateJWT, authorizeRoles('teacher', 'admin'), async (req, res) => {
+router.post('/create-samples', protect, authorizeRoles('teacher', 'admin'), async (req, res) => {
   try {
     if (!req.user) {
       return res.status(401).json({ error: 'User not authenticated' });

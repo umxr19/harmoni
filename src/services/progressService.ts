@@ -3,6 +3,7 @@ import Attempt from '../models/attempt';
 import { User, IUser } from '../models/userModel';
 import Question, { IQuestion } from '../models/question';
 import { Progress } from '../models/progressModel';
+import logger from '../utils/logger';
 
 // Define interfaces for populated documents
 interface PopulatedQuestion extends Document {
@@ -32,7 +33,13 @@ interface ParentUser extends IUser {
   childrenIds?: Types.ObjectId[];
 }
 
-export default class ProgressService {
+interface PerformanceData {
+  subject: string;
+  score: number;
+  lastAttempted?: Date;
+}
+
+export class ProgressService {
   // Record a new attempt
   async recordAttempt(data: {
     userId: string;
@@ -51,6 +58,52 @@ export default class ProgressService {
     
     await attempt.save();
     return attempt;
+  }
+
+  // Get performance data for a user
+  async getPerformanceData(userId: string): Promise<PerformanceData[]> {
+    try {
+      const attempts = await Attempt.find({ user: userId })
+        .populate('question')
+        .lean() as unknown as PopulatedAttempt[];
+
+      // Group attempts by subject/category
+      const subjectMap = new Map<string, {
+        total: number;
+        correct: number;
+        lastAttempted: Date;
+      }>();
+
+      for (const attempt of attempts) {
+        const subject = attempt.question.category;
+        if (!subjectMap.has(subject)) {
+          subjectMap.set(subject, {
+            total: 0,
+            correct: 0,
+            lastAttempted: attempt.createdAt
+          });
+        }
+
+        const stats = subjectMap.get(subject)!;
+        stats.total++;
+        if (attempt.isCorrect) {
+          stats.correct++;
+        }
+        if (attempt.createdAt > stats.lastAttempted) {
+          stats.lastAttempted = attempt.createdAt;
+        }
+      }
+
+      // Convert map to array of performance data
+      return Array.from(subjectMap.entries()).map(([subject, stats]) => ({
+        subject,
+        score: (stats.correct / stats.total) * 100,
+        lastAttempted: stats.lastAttempted
+      }));
+    } catch (error) {
+      logger.error('Error getting performance data:', error);
+      throw error;
+    }
   }
 
   // Get user progress
@@ -209,4 +262,8 @@ export default class ProgressService {
       .limit(limit)
       .lean() as unknown as PopulatedAttempt[];
   }
-} 
+}
+
+// Export a singleton instance
+const progressService = new ProgressService();
+export default progressService; 

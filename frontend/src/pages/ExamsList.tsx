@@ -279,7 +279,7 @@ export const ExamsList: React.FC = () => {
             
             <div className="exam-footer">
               <span className="created-by">By: {exam.createdBy.username || 'Unknown'}</span>
-              <Link to={`/exams/${exam._id}`} className="start-exam-button">
+              <Link to={`/exams/start/${exam._id}`} className="start-exam-button">
                 Start Exam
               </Link>
             </div>

@@ -1,5 +1,5 @@
 import express from 'express';
-import { authenticateJWT, authorizeRoles } from '../middleware/authMiddleware';
+import { protect, authorizeRoles } from '../middleware/authMiddleware';
 import { 
     createQuestion, 
     getQuestions, 
@@ -11,7 +11,7 @@ import {
 const router = express.Router();
 
 // All routes require authentication
-router.use(authenticateJWT);
+router.use(protect);
 
 // Question management routes
 router.post('/', authorizeRoles('teacher', 'admin'), createQuestion);

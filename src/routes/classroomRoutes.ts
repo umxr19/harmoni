@@ -1,5 +1,5 @@
 import express from 'express';
-import { authenticateJWT, authorizeRoles } from '../middleware/authMiddleware';
+import { protect, authorizeRoles } from '../middleware/authMiddleware';
 import { 
     createClassroom, 
     getClassrooms, 
@@ -14,7 +14,7 @@ import {
 const router = express.Router();
 
 // All routes require authentication
-router.use(authenticateJWT);
+router.use(protect);
 
 // Teacher routes
 router.post('/', authorizeRoles('teacher'), createClassroom);

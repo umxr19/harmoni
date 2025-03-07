@@ -1,26 +1,105 @@
-/* Theme Toggle Button Styles */
-.theme-toggle-button {
-  background-color: #4a6cf7;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 5px;
-  font-weight: 500;
+/* Theme Toggle Styles */
+.theme-toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.theme-icon {
+  font-size: 18px;
+}
+
+.theme-icon.light {
+  color: #f1c40f;
+}
+
+.theme-icon.dark {
+  color: #34495e;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
   cursor: pointer;
-  transition: all 0.2s ease;
-  border: none;
-  margin: 5px 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
 }
 
-.theme-toggle-button:hover {
-  background-color: #3a5ce5;
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
 }
 
-/* Dark mode styles */
-body.dark-mode .theme-toggle-button {
-  background-color: #ffcc00;
-  color: #333;
+input:checked + .slider {
+  background-color: #4a6cf7;
 }
 
-body.dark-mode .theme-toggle-button:hover {
-  background-color: #e6b800;
+input:focus + .slider {
+  box-shadow: 0 0 1px #4a6cf7;
+}
+
+input:checked + .slider:before {
+  transform: translateX(30px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* Dark mode styles for the toggle */
+body.dark-mode .theme-icon.light {
+  color: #aaa;
+}
+
+body.dark-mode .theme-icon.dark {
+  color: #ffcc00;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .switch {
+    width: 50px;
+    height: 25px;
+  }
+  
+  .slider:before {
+    height: 17px;
+    width: 17px;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(25px);
+  }
 } 

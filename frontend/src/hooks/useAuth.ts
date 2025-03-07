@@ -31,6 +31,7 @@ export function useAuth() {
     updateUser: authManager.updateUser.bind(authManager),
     updateUserType: authManager.updateUserType.bind(authManager),
     updateYearGroup: authManager.updateYearGroup.bind(authManager),
+    getToken: authManager.getToken.bind(authManager),
     // Add a flag to indicate this is the real auth (not mock)
     isMockAuth: false
   };

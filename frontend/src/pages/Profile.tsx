@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { userService } from '../services/api';
 import { useAuth } from '../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { User as AuthUser } from '../services/authService';
 import '../styles/Profile.css';
 import { getDeviceType } from '../utils/mobileDetection';
+import { ThemeToggle } from '../components/ThemeToggle';
 import logger from '../utils/logger';
 
 // Create a local interface that's compatible with both User types
@@ -242,7 +243,13 @@ export const Profile: React.FC = () => {
 
     return (
         <div className="profile-container">
+            {/* Theme Toggle at the top */}
+            <div className="theme-toggle-wrapper">
+                <ThemeToggle />
+            </div>
+            
             <h2 className="profile-header">Your Profile</h2>
+            
             <div className="profile-info">
                 <p><strong>Username:</strong> {user?.username || 'User'}</p>
                 <p><strong>Email:</strong> {user?.email || 'user@example.com'}</p>
@@ -251,25 +258,15 @@ export const Profile: React.FC = () => {
             </div>
             
             <div className="profile-actions">
-                <button 
-                    className="change-password-button"
-                    onClick={() => setShowPasswordForm(!showPasswordForm)}
-                >
-                    {showPasswordForm ? 'Cancel' : 'Change Password'}
-                </button>
+                <Link to="/account-management" className="account-management-button">
+                    Account Management
+                </Link>
                 
                 <button 
                     className="logout-button"
                     onClick={handleLogout}
                 >
                     Logout
-                </button>
-                
-                <button 
-                    className="delete-account-button"
-                    onClick={() => setShowDeleteConfirmation(true)}
-                >
-                    Delete Account
                 </button>
             </div>
             

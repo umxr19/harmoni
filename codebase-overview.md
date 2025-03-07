@@ -290,6 +290,44 @@ This testing confirms that our application's API connectivity and authentication
 4. Conduct user testing on various mobile devices and screen sizes
 5. Optimize performance for users with slower mobile connections
 
+### Rate Limiting and MongoDB Configuration (March 2024)
+
+We've implemented and tested comprehensive rate limiting functionality and improved the MongoDB configuration:
+
+1. **Rate Limiting Implementation**:
+   - Added Redis-based rate limiting for API endpoints
+   - Implemented two levels of rate limiting:
+     - IP-based: 100 requests per 15 minutes
+     - User-based: 3 requests per 24 hours (tracked in Redis)
+   - Created debug endpoints for testing rate limits without consuming OpenAI tokens
+   - Added proper error handling for rate limit exceeded scenarios
+
+2. **MongoDB Configuration Improvements**:
+   - Updated database configuration to support both local and Atlas connections
+   - Added fallback to local MongoDB (mongodb://localhost:27017/question-bank) when Atlas URI is not available
+   - Improved error handling for database connections
+   - Enhanced logging for connection status and errors
+
+3. **Testing Infrastructure**:
+   - Created PowerShell test scripts for rate limit verification
+   - Implemented debug endpoints for testing authentication and rate limiting
+   - Added comprehensive logging for request tracking
+   - Created mock endpoints to test rate limiting without consuming API resources
+
+4. **Authentication Enhancements**:
+   - Fixed issues with JWT token handling
+   - Improved error messages for authentication failures
+   - Added proper validation for authorization headers
+   - Enhanced security for token-based authentication
+
+5. **Development Environment**:
+   - Added support for local MongoDB development
+   - Configured Redis for local rate limiting
+   - Improved environment variable handling
+   - Enhanced logging for development debugging
+
+These updates have significantly improved the application's reliability and security while making it easier to develop and test locally.
+
 ## Development Guidelines
 
 ### Code Style

@@ -9,13 +9,19 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "moduleResolution": "node",
-    "allowJs": true
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"]
+    }
   },
   "include": [
     "src/**/*"
   ],
   "exclude": [
     "node_modules",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "frontend/**/*"
   ]
 }

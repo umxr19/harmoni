@@ -61,6 +61,11 @@
 - Progress tracking with completion marking
 - Mood-based adaptive recommendations
 - Interactive calendar with visual indicators
+- AI-powered schedule generation using OpenAI
+- Contextual learning recommendations based on performance data
+- Intelligent prioritization of weak subjects
+- Adaptive scheduling that adjusts to user mood and learning patterns
+- Personalized study suggestions with customized duration
 
 ### User Dashboard
 - Role-specific dashboards (student, teacher, parent, admin)
@@ -614,6 +619,11 @@
 - `productService` - Product and purchase management with conditional mock data support for development
 - `stripeService` - Payment processing with Stripe
 - `mockProductService` - Mock implementation of product and purchase operations for development
+- `openAIService` - Integration with OpenAI API for intelligent features
+  - AI-powered study schedule generation
+  - Educational tutoring responses
+  - Personalized learning recommendations
+  - Mood-based adaptive scheduling
 
 ## 6. Database Schema
 
@@ -763,6 +773,13 @@
 - POST /api/study/schedule/generate - Generate a new weekly study schedule
 - GET /api/study/schedule/current - Get user's current weekly schedule
 - POST /api/study/schedule/complete - Mark a day's topics as completed with mood rating
+- POST /api/study/schedule/refresh - Generate a new AI-powered study schedule with preferences
+
+### OpenAI Integration
+- POST /api/openai/generate-schedule - Generate personalized study schedule using OpenAI
+- POST /api/openai/tutor-response - Get educational responses from AI tutor
+- GET /api/openai/validate - Validate OpenAI API key and connection
+- GET /api/openai/usage - Get current API usage statistics
 
 ### Assignments
 - GET /api/students/assignments
@@ -780,6 +797,61 @@
 - POST /api/auth/test-login 
 
 ## 8. Recent Development Updates
+
+#### OpenAI API Integration and Validation Improvements (October 2024)
+
+**Overview:**
+- Implemented a comprehensive OpenAI API validation script to ensure proper integration
+- Added support for both `sk-` and `sk-proj-` API key formats
+- Enhanced error handling and debugging capabilities
+- Improved environment variable management and validation
+
+**Technical Implementation Details:**
+
+- Validation Script Implementation:
+  - Created `src/utils/validateOpenAI.ts` for comprehensive API integration testing
+  - Implemented checks for:
+    - Environment file configuration
+    - API key format validation
+    - OpenAI package installation and version
+    - API connection testing
+  - Added detailed logging with color-coded output using chalk
+  - Implemented proper error handling with descriptive messages
+
+- Environment Configuration:
+  - Updated `.env` file to support both `sk-` and `sk-proj-` API key formats
+  - Enhanced documentation comments in `.env` file
+  - Improved environment variable loading with proper path resolution
+  - Added validation for critical environment variables
+
+- Error Handling Improvements:
+  - Added specific error handling for different API response codes
+  - Implemented detailed debug logging for troubleshooting
+  - Enhanced error messages with actionable feedback
+  - Added rate limit detection and appropriate user feedback
+
+- Development Tools:
+  - Added chalk for improved console output formatting
+  - Implemented proper TypeScript types for OpenAI integration
+  - Created utility functions for environment file checking
+  - Added comprehensive API connection testing
+
+**Modified Files:**
+- Created new files:
+  - `src/utils/validateOpenAI.ts`: Main validation script
+  
+- Updated existing files:
+  - `.env`: Enhanced API key documentation and format support
+  - `package.json`: Added chalk dependency
+  - Various service files: Updated to support new API key format
+
+**Future Improvements:**
+- Implement automated periodic validation checks
+- Add support for organization-specific API keys
+- Enhance rate limit handling with retry mechanisms
+- Create a web interface for validation results
+- Implement validation results caching
+- Add support for multiple API key rotation
 
 #### Enhanced Error Handling and Mock Data Integration (July 2023)
 
@@ -839,6 +911,84 @@
 - Create comprehensive API documentation with Swagger
 - Implement API versioning for future compatibility
 - Continue improving mock data fallbacks for resilience during development
+
+#### AI-Powered Study Schedule Generation (March 2025)
+
+**Overview:**
+- Implemented OpenAI integration for personalized study schedule generation
+- Fixed TypeScript errors in the OpenAI controller and service
+- Resolved Redis connection issues for caching and session management
+- Enhanced error handling for more robust API interactions
+- Improved mobile device compatibility for the study schedule feature
+
+**Technical Implementation Details:**
+
+- OpenAI Integration:
+  - Created a robust OpenAI service that communicates with the OpenAI API
+  - Implemented proper error handling and response parsing
+  - Added support for both `sk-` and `sk-proj-` API key formats
+  - Developed comprehensive input validation to ensure quality prompts
+  - Created structured interfaces for all data flowing to and from the OpenAI API
+  - Implemented a fallback mechanism for schedule generation when API calls fail
+
+- Study Schedule Service Enhancements:
+  - Updated the `studyScheduleService` to use OpenAI for generating personalized schedules
+  - Added interfaces for `UserData`, `ChatMessage`, and OpenAI response types
+  - Implemented a `generateStudySchedule` method that creates schedules based on:
+    - User mood data and recent performance
+    - Journal sentiment and preferences
+    - Preferred study times and rest days
+  - Created the `getTutorResponse` method for educational AI tutoring
+
+- Backend Infrastructure Improvements:
+  - Fixed Redis connection issues by ensuring proper WSL configuration
+  - Enhanced error handling with proper TypeScript typing
+  - Improved controller structure for better separation of concerns
+  - Added logging for debugging OpenAI API interactions
+  - Implemented environment-based configuration for development vs. production
+
+- Mobile Compatibility Enhancements:
+  - Tested and verified API functionality on mobile devices
+  - Ensured proper IP address handling for cross-device development
+  - Fixed connection issues by updating server configuration to listen on all interfaces
+
+**Code Structure Improvements:**
+- Enhanced the `openaiController.ts` to handle proper data transformation and error handling
+- Updated the `openaiService.ts` to include methods for both study schedule generation and tutor responses
+- Fixed TypeScript type mismatches in the controller's return values
+- Added the `refusal` optional property to the `ChatCompletionMessage` interface
+- Improved parameter handling to ensure proper arguments are passed to service methods
+
+**Modified Files:**
+- `src/services/openaiService.ts`:
+  - Implemented OpenAI API integration
+  - Added study schedule generation functionality
+  - Created tutor response generation capability
+  - Enhanced error handling and response parsing
+
+- `src/controllers/openaiController.ts`:
+  - Updated interface definitions
+  - Fixed type errors in method signatures
+  - Enhanced error handling for API interactions
+  - Improved parameter validation
+
+- `src/routes/studyScheduleRoutes.ts`:
+  - Connected routes to the OpenAI-powered study schedule generation
+  - Added endpoints for schedule creation and modification
+
+**Infrastructure Improvements:**
+- Added Redis server configuration for WSL
+- Enhanced deployment scripts for easier setup
+- Improved documentation for environment configuration
+- Added debug endpoints for testing OpenAI connectivity
+
+**Future Enhancements:**
+- Implement more advanced prompt engineering for better schedule generation
+- Add fine-tuning capabilities for the OpenAI model based on user feedback
+- Enhance the study schedule with more detailed personalization
+- Implement caching strategies for reducing API calls
+- Create a feedback mechanism for users to rate generated schedules
+- Develop an analytics system to measure schedule effectiveness
 
 #### Mobile Authentication and Connectivity Improvements (July 2024)
 
@@ -920,7 +1070,7 @@
   - Enhanced proxy error handling with detailed logging
 
 - API Service Enhancements:
-  - Modified `getApiBaseUrl()` function to detect mobile devices and use the machine's IP address
+  - Modified `getApiBaseUrl()` function to detect mobile devices and use the machine's IP
   - Added special handling for mobile devices to bypass localhost references
   - Updated all direct API calls to use the correct IP address for mobile testing
   - Implemented device-specific connection testing with the actual IP address
@@ -1201,3 +1351,50 @@ The frontend build process was optimized and fixed:
 - Ensured all critical paths were properly tested
 
 These preparations have ensured the application is now ready for deployment to a production environment, with all critical checks passing successfully. The deployment process can now proceed with confidence that the application will function correctly in a production setting. 
+
+#### Exam and Wellbeing Routes Restoration (March 2025)
+
+**Overview:**
+- Fixed critical routing issues causing 404 errors in exam and wellbeing pages
+- Restored proper functionality to the exam list and wellbeing suite
+- Corrected lazy loading implementation for key components
+- Enhanced route protection and authentication handling
+
+**Technical Implementation Details:**
+
+- Exam Routes Fixes:
+  - Corrected the lazy loading implementation for `ExamsList` component
+  - Fixed the exam start route to properly handle exam IDs
+  - Updated the exam attempt and results routes
+  - Enhanced error handling with proper fallback to mock data
+  - Improved type safety throughout exam-related components
+
+- Wellbeing Suite Restoration:
+  - Fixed incorrect import path in `WellbeingSuiteLazy` component
+  - Corrected the lazy loading implementation to properly handle default exports
+  - Updated the wellbeing route to ensure proper authentication protection
+  - Enhanced the wellbeing service integration with proper error handling
+  - Improved the user experience with better loading states
+
+**Modified Files:**
+- `frontend/src/App.tsx`:
+  - Updated lazy loading implementation for exam components
+  - Fixed wellbeing component import path
+  - Enhanced route protection configuration
+
+- `frontend/src/pages/ExamsList.tsx`:
+  - Improved error handling and loading states
+  - Enhanced mock data integration for development
+  - Fixed navigation links to use correct exam routes
+
+- `frontend/src/pages/WellbeingSuitePage.tsx`:
+  - Updated component export to use default export
+  - Enhanced integration with wellbeing service
+  - Improved error handling and loading states
+
+**Impact:**
+- Users can now access and interact with exams without encountering 404 errors
+- The wellbeing suite is fully functional with proper navigation
+- Enhanced overall application stability and user experience
+- Reduced reliance on mock data with proper API integration
+ 

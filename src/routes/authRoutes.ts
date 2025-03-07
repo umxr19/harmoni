@@ -1,5 +1,5 @@
 import express from 'express';
-import { authenticateJWT } from '../middleware/authMiddleware';
+import { protect } from '../middleware/authMiddleware';
 import { login, register, getCurrentUser } from '../controllers/authController';
 
 const router = express.Router();
@@ -9,6 +9,6 @@ router.post('/login', login);
 router.post('/register', register);
 
 // Protected routes
-router.get('/me', authenticateJWT, getCurrentUser);
+router.get('/me', protect, getCurrentUser);
 
 export default router; 
