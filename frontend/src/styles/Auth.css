@@ -11,20 +11,27 @@
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  padding: 40px;
+  padding: 30px;
   width: 100%;
-  max-width: 500px;
+  max-width: 580px;
 }
 
 .auth-header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 .auth-header h1 {
-  margin: 0 0 10px 0;
   color: #333;
-  font-size: 2rem;
+  font-size: 2.2rem;
+  margin: 0 0 20px 0;
+  font-weight: 600;
+  line-height: 1.6;
+  min-height: 80px;
+}
+
+.welcome-text {
+  white-space: nowrap;
 }
 
 .auth-header p {
@@ -45,6 +52,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-top: 5px;
 }
 
 .form-group {
@@ -76,19 +84,26 @@
 
 .auth-button {
   padding: 14px;
-  background-color: #4a6cf7;
+  background-color: #9681B8;
   color: white;
   border: none;
   border-radius: 5px;
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.1s ease;
   margin-top: 10px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
 }
 
 .auth-button:hover:not(:disabled) {
-  background-color: #3a5ce5;
+  background-color: #A996C8;
+}
+
+.auth-button:active:not(:disabled) {
+  transform: scale(0.98);
 }
 
 .auth-button:disabled {
@@ -154,11 +169,46 @@
 
 @media (max-width: 576px) {
   .auth-card {
+    width: 95%;
     padding: 30px 20px;
   }
   
   .auth-header h1 {
     font-size: 1.8rem;
+    line-height: 1.3;
+    min-height: 70px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 18px;
+    gap: 4px;
+  }
+  
+  .auth-header h1 .welcome-text {
+    padding-right: 0;
+    margin-bottom: 5px;
+  }
+  
+  .auth-header {
+    margin-bottom: 25px;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .auth-form {
+    align-items: center;
+    width: 100%;
+  }
+  
+  .form-group {
+    width: 100%;
+  }
+  
+  .auth-button {
+    width: 100%;
+    padding: 16px;
+    font-size: 1.1rem;
+    margin-top: 15px;
   }
 }
 
@@ -263,6 +313,8 @@
     padding-left: 20px;
 }
 
+/* Remove the styles for the test-connection-button */
+/*
 .test-connection-button {
     margin-top: 10px;
     padding: 8px 12px;
@@ -282,4 +334,5 @@
 .test-connection-button:disabled {
     background-color: #adb5bd;
     cursor: not-allowed;
-} 
+}
+*/ 

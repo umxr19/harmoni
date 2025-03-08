@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import '../styles/Auth.css';
 import '../styles/MobileAuth.css';
+import '../styles/animations.css';
 import axios from 'axios';
 import { getApiBaseUrl } from '../services/api';
 import logger from '../utils/logger';
@@ -20,6 +21,7 @@ export const Login: React.FC = () => {
     const [connectionStatus, setConnectionStatus] = useState<'idle' | 'testing' | 'success' | 'failed'>('idle');
     const [showConnectionTest, setShowConnectionTest] = useState(false);
     const [rateLimitCountdown, setRateLimitCountdown] = useState(0);
+    const particlesRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
     const auth = useAuth();
     const { login, isAuthenticated, isMockAuth, isLoading: authLoading } = auth;
@@ -198,6 +200,44 @@ export const Login: React.FC = () => {
         }
     };
 
+    const createParticles = (e: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement>) => {
+        if (!particlesRef.current) return;
+        
+        const button = e.currentTarget;
+        const buttonRect = button.getBoundingClientRect();
+        const particles = particlesRef.current;
+        
+        // Clear any existing particles
+        particles.innerHTML = '';
+        
+        // Create new particles
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Random position within the button
+            const x = Math.random() * buttonRect.width;
+            const y = Math.random() * buttonRect.height;
+            
+            // Random direction for the particle to float
+            const tx = (Math.random() - 0.5) * 100;
+            const ty = (Math.random() - 0.5) * 100;
+            
+            particle.style.setProperty('--tx', `${tx}px`);
+            particle.style.setProperty('--ty', `${ty}px`);
+            
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y}px`;
+            
+            particles.appendChild(particle);
+            
+            // Trigger animation with a slight delay for each particle
+            setTimeout(() => {
+                particle.classList.add('particle-animation');
+            }, Math.random() * 200);
+        }
+    };
+
     // Show loading state while auth is initializing
     if (authLoading) {
         return (
@@ -216,8 +256,23 @@ export const Login: React.FC = () => {
         <div className="auth-container">
             <div className="auth-card">
                 <div className="auth-header">
-                    <h1>Welcome Back</h1>
-                    <p>Log in to access your 11+ Question Bank account</p>
+                    <h1 className="flex flex-wrap justify-center items-baseline gap-2">
+                        <span className="welcome-text text-gray-800">Welcome Back,</span>
+                        <span className="word-flip-container inline-flex items-baseline">
+                            <span className="flip-word">Teacher</span>
+                            <span className="flip-word">Doctor</span>
+                            <span className="flip-word">Scientist</span>
+                            <span className="flip-word">Engineer</span>
+                            <span className="flip-word">Artist</span>
+                            <span className="flip-word">Lawyer</span>
+                            <span className="flip-word">Architect</span>
+                            <span className="flip-word">Accountant</span>
+                            <span className="flip-word">Entrepreneur</span>
+                            <span className="flip-word">Professor</span>
+                            <span className="flip-word">Psychologist</span>
+                            <span className="flip-word">Librarian</span>
+                        </span>
+                    </h1>
                     {isMockAuth && (
                         <div className="mock-auth-notice">
                             <p style={{ color: 'orange', fontWeight: 'bold' }}>
@@ -249,15 +304,6 @@ export const Login: React.FC = () => {
                                         <li><strong>Server issue detected!</strong> The backend server at port 3000 is not responding. Please restart the backend server.</li>
                                     )}
                                 </ul>
-                                {(showConnectionTest || retryCount > 0) && (
-                                    <button 
-                                        onClick={testBackendConnection} 
-                                        disabled={testingConnection}
-                                        className="test-connection-button"
-                                    >
-                                        {testingConnection ? 'Testing Connection...' : 'Test Backend Connection'}
-                                    </button>
-                                )}
                                 {connectionStatus === 'failed' && (
                                     <div className="connection-status-failed">
                                         <p>Connection test failed. Please ensure the backend server is running.</p>
@@ -284,18 +330,6 @@ export const Login: React.FC = () => {
                     </div>
                 )}
                 {auth.error && <div className="auth-error">{auth.error}</div>}
-
-                {!error && connectionStatus === 'idle' && (
-                    <div className="connection-test">
-                        <button 
-                            onClick={testBackendConnection} 
-                            disabled={testingConnection}
-                            className="test-connection-button secondary"
-                        >
-                            {testingConnection ? 'Testing Connection...' : 'Test Backend Connection'}
-                        </button>
-                    </div>
-                )}
 
                 <form className="auth-form" onSubmit={handleSubmit}>
                     <div className="form-group">
@@ -328,7 +362,10 @@ export const Login: React.FC = () => {
                         type="submit" 
                         className="auth-button" 
                         disabled={loading}
+                        onMouseEnter={createParticles}
+                        onTouchStart={createParticles}
                     >
+                        <div className="particles" ref={particlesRef}></div>
                         {loading ? 'Logging in...' : 'Log In'}
                     </button>
                 </form>

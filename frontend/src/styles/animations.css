@@ -1,0 +1,159 @@
+.word-flip-container {
+  position: relative;
+  display: inline-block;
+  height: 1.5em;
+  min-width: 180px;
+  overflow: hidden;
+  padding: 0 5px;
+  vertical-align: bottom;
+  margin-bottom: -4px;
+}
+
+.flip-word {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1.2em;
+  width: 100%;
+  margin: 0;
+  color: #7D6A9C; /* Darker purple tone */
+  opacity: 0;
+  display: inline-block;
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+  perspective: 500px;
+  transform: rotateX(180deg);
+  backface-visibility: hidden;
+  animation: flipWord 24s ease-in-out infinite;
+  font-weight: 600;
+  text-align: left;
+}
+
+@keyframes flipWord {
+  0%, 6% {
+    opacity: 0;
+    transform: rotateX(180deg);
+  }
+  8%, 13% {
+    opacity: 1;
+    transform: rotateX(0deg);
+  }
+  15%, 17% {
+    opacity: 0;
+    transform: rotateX(-180deg);
+  }
+  18%, 100% {
+    opacity: 0;
+    transform: rotateX(-180deg);
+  }
+}
+
+/* Animation delays for 12 words, each showing for 2 seconds within a 24-second cycle */
+.flip-word:nth-child(1) { animation-delay: 0s; }
+.flip-word:nth-child(2) { animation-delay: 2s; }
+.flip-word:nth-child(3) { animation-delay: 4s; }
+.flip-word:nth-child(4) { animation-delay: 6s; }
+.flip-word:nth-child(5) { animation-delay: 8s; }
+.flip-word:nth-child(6) { animation-delay: 10s; }
+.flip-word:nth-child(7) { animation-delay: 12s; }
+.flip-word:nth-child(8) { animation-delay: 14s; }
+.flip-word:nth-child(9) { animation-delay: 16s; }
+.flip-word:nth-child(10) { animation-delay: 18s; }
+.flip-word:nth-child(11) { animation-delay: 20s; }
+.flip-word:nth-child(12) { animation-delay: 22s; }
+
+@media (max-width: 576px) {
+  .word-flip-container {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    padding: 0;
+    height: 1.4em;
+  }
+  
+  .flip-word {
+    left: 50%;
+    transform: translateX(-50%) rotateX(180deg);
+    width: auto;
+    min-width: 120px;
+    text-align: center;
+  }
+  
+  @keyframes flipWord {
+    0%, 6% {
+      opacity: 0;
+      transform: translateX(-50%) rotateX(180deg);
+    }
+    8%, 13% {
+      opacity: 1;
+      transform: translateX(-50%) rotateX(0deg);
+    }
+    15%, 17% {
+      opacity: 0;
+      transform: translateX(-50%) rotateX(-180deg);
+    }
+    18%, 100% {
+      opacity: 0;
+      transform: translateX(-50%) rotateX(-180deg);
+    }
+  }
+}
+
+/* Button Particle Effects */
+.auth-button .particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.particle-animation {
+  animation: particle-appear-float 1s ease-out forwards;
+}
+
+@keyframes particle-appear-float {
+  0% {
+    opacity: 0;
+    transform: scale(0) translate(0, 0);
+  }
+  15% {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5) translate(var(--tx), var(--ty));
+  }
+}
+
+/* Remove Logo Animation
+@keyframes logoEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logo-container img {
+  animation: logoEntrance 0.8s ease-out forwards;
+}
+*/ 

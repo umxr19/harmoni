@@ -40,7 +40,14 @@ export const HeaderComponent: React.FC = () => {
     <header className="app-header">
       <div className="app-header-container">
         <div className="app-logo">
-          <Link to="/">Harmoni</Link>
+          <Link to="/">
+            <img 
+              src="/Harmoni Logo Icon Only-01.png"
+              alt="Harmoni Logo"
+              className="app-logo-icon"
+            />
+            <span>Harmoni</span>
+          </Link>
         </div>
 
         <div className="app-header-actions">
